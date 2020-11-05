@@ -1,11 +1,12 @@
-package Vista;
+package vista;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import Controlador.ControladorZombieDefense;
 import javax.swing.JPanel;
+
+import controlador.ControladorZombieDefense;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;

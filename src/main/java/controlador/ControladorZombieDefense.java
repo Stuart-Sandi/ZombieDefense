@@ -1,4 +1,4 @@
-package Controlador;
+package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
-import Vista.VentanaInicio;
+import vista.VentanaInicio;
 
 public class ControladorZombieDefense implements ActionListener, MouseListener {
 

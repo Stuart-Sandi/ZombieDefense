@@ -1,6 +1,6 @@
-package POO.Zombie_Defense;
+package modelo;
 
-import Controlador.ControladorZombieDefense;
+import controlador.ControladorZombieDefense;
 
 /**
  * Hello world!
