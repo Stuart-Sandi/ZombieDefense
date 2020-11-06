@@ -41,8 +41,17 @@ public class Mapa {
 	
 	public void generarJugadores() {
 		ArrayList<Jugador> lista = new ArrayList<Jugador>();
-		for (TipoJugador tipo : TipoJugador.values()) {
-			lista.add(new Jugador(tipo));
+		TipoJugador[] listTipoJugadores = TipoJugador.values();
+		ArrayList<Posicion> lstPosiciones = new ArrayList<Posicion>(){ 
+            { 
+                add(new Posicion(ValoresDefecto.altoTablero-1, ValoresDefecto.anchoTablero-1)); 
+                add(new Posicion(ValoresDefecto.altoTablero-2, ValoresDefecto.anchoTablero-1)); 
+                add(new Posicion(ValoresDefecto.altoTablero-3, ValoresDefecto.anchoTablero-1)); 
+                add(new Posicion(ValoresDefecto.altoTablero-4, ValoresDefecto.anchoTablero-1)); 
+            } 
+        };
+		for (int i = 0; i < lista.size(); i++) {
+			lista.add(new Jugador(listTipoJugadores[i], lstPosiciones.get(i)));
 		}
 	}
 	

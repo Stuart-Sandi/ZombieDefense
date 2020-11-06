@@ -63,7 +63,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		try {
 			this.jugSeleccionado = (Jugador) elemento;
 		} catch (Exception e) {
-			// TODO: handle exception
+			// No es necesario manejar la excepcion
 		}
 		
 		

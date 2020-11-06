@@ -3,4 +3,4 @@ https://stackoverflow.com/questions
 https://www.baeldung.com/java-method-return-multiple-values
 https://www.w3schools.com/java/
 https://docs.oracle.com/javase/tutorial/java/generics/types.html
-
+https://www.geeksforgeeks.org/initialize-an-arraylist-in-java/

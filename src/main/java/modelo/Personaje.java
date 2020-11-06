@@ -19,6 +19,11 @@ public class Personaje {
 		this.posicion = new Posicion(x, y);
 	}
 	
+	public Personaje(Posicion pPosicion) {
+		super();
+		this.posicion = pPosicion;
+	}
+	
 	public void Atacar(Posicion pPosicion, Personaje pPersonaje) {
 		//Todo hacer el metodo de atacar
 	}

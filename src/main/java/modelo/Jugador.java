@@ -35,4 +35,20 @@ public class Jugador extends Personaje{
 		this.habilidades = new ArrayList<Habilidad>();
 		this.inventario = new HashMap<Integer, Item>();
 	}
+
+	public Jugador(TipoJugador pTipo, Posicion posicion) {
+		super(posicion);
+		this.tipo = pTipo;	
+		this.vida = pTipo.vida;
+		this.cantidadAcciones = pTipo.cantidadAcciones;
+		this.pasos = pTipo.pasos;
+		this.cantidadAcciones = pTipo.cantidadAcciones;
+		this.distanciaVision = pTipo.distanciaVision;
+		this.experiencia = pTipo.experiencia;
+		this.vivo = true;
+		this.habilidades = new ArrayList<Habilidad>();
+		this.inventario = new HashMap<Integer, Item>();
+	}
+
+	
 }
