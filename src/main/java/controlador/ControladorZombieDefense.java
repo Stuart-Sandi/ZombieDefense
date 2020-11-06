@@ -54,11 +54,21 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         int x = Integer.parseInt(identificadorBoton.substring(0,identificadorBoton.indexOf(",")));
         int y = Integer.parseInt(identificadorBoton.substring(1+identificadorBoton.indexOf(",")));
         this.vInicio.tablero[x][y].setEnabled(false);
-        this.jugSeleccionado = (Jugador) this.mapa.tablero[x][y].elemento;
         System.out.println("X: "+x+"  /  Y:"+y);
+        seleccionarJugador(this.mapa.tablero[x][y].elemento);
 		
 	}
 	
+	private void seleccionarJugador(Object elemento) {
+		try {
+			this.jugSeleccionado = (Jugador) elemento;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
