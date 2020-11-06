@@ -83,11 +83,11 @@ public class VentanaInicio {
 	
 	private void generarBotones(){
         
-        for (int i = 0; i <20; i++) {
+        for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
             
-            for (int j = 0; j < 20; j++) {
+            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
                 
-                this.tablero[i][j] = new JButton(this.cesped);
+                this.tablero[i][j] = new JButton();
                 this.tablero[i][j].setOpaque(true);
                 this.panel.add(this.tablero[i][j]);
                 this.tablero[i][j].setBounds(30*i, 30*j, 30, 30);
