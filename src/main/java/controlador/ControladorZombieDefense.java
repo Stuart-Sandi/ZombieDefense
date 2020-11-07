@@ -46,6 +46,12 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
             }
         }
 	}
+	
+	private void pintarJugadores() {
+		for (Jugador jug : app.) {
+			
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
