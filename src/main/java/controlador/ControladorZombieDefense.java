@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+import modelo.Aplicacion;
 import modelo.Jugador;
 import modelo.Mapa;
 import vista.VentanaInicio;
@@ -18,12 +19,12 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 
 	//VARIABLES
 	private VentanaInicio vInicio;
-	private Mapa mapa;
+	private Aplicacion app;
 	private Jugador jugSeleccionado;
 	//CONSTRUCTORES
 	public ControladorZombieDefense() {
 		this.vInicio = new VentanaInicio(this);
-		this.mapa = new Mapa();
+		this.app.mapa = new Mapa();
 		pintarMapa();
 	}
 	
@@ -39,7 +40,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
             
             for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
-                Icon img = (Icon) mapa.tablero[i][j].elemento;
+                Icon img = (Icon) app.mapa.tablero[i][j].elemento;
                 this.vInicio.tablero[i][j].setIcon(img);
 
             }
@@ -55,7 +56,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         int y = Integer.parseInt(identificadorBoton.substring(1+identificadorBoton.indexOf(",")));
         this.vInicio.tablero[x][y].setEnabled(false);
         System.out.println("X: "+x+"  /  Y:"+y);
-        seleccionarJugador(this.mapa.tablero[x][y].elemento);
+        seleccionarJugador(this.app.mapa.tablero[x][y].elemento);
 		
 	}
 	
@@ -71,7 +72,9 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+		if(this.jugSeleccionado != null) {
+			moverJugador(e);
+		}
 		
 	}
 	

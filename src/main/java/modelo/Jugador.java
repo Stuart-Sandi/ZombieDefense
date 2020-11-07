@@ -3,10 +3,13 @@ package modelo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.Icon;
+
 public class Jugador extends Personaje{
 	public TipoJugador tipo;
 	public ArrayList<Habilidad> habilidades;
 	public HashMap<Integer, Item> inventario;
+	public Icon img;
 	
 	public Jugador(TipoJugador pTipo) {
 		super();
@@ -50,5 +53,7 @@ public class Jugador extends Personaje{
 		this.inventario = new HashMap<Integer, Item>();
 	}
 
-	
+	private void loadImg() {
+		//TODO hacer el singelton de imagenes this.img = 
+	}
 }
