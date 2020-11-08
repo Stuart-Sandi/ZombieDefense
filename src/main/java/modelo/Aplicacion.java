@@ -12,8 +12,8 @@ public class Aplicacion {
 	public Bloque[][] bloques;
 	public Personaje[][] personajes;
 	public HashMap<Integer, GeneradorZombie> puntoSpawn;
+	public HashMap<String, Icon> imagenes;
 	public Mapa mapa;
-	
 	
 	public Aplicacion() {
 		super();

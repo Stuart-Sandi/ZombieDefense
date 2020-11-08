@@ -53,7 +53,4 @@ public class Jugador extends Personaje{
 		this.inventario = new HashMap<Integer, Item>();
 	}
 
-	private void loadImg() {
-		//TODO hacer el singelton de imagenes this.img = 
-	}
 }
