@@ -11,11 +11,17 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaInicio {
 
 	public JButton[][] tablero;
 	private JFrame frame;
+	public JLabel lblPersonaje, lblHabilidad, lblPasos;
+	public JComboBox comboBoxArma, comboBoxItem;
 	public JPanel panel, panel2;
 	public ImageIcon cesped;
 	
@@ -47,6 +53,10 @@ public class VentanaInicio {
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Zombie Defense");
 		
+		//ImageIcon
+        this.cesped = new ImageIcon((new ImageIcon(getClass().getResource("/Imagenes/muro1.jpg")))
+        		.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+		
 		//JPANEL
 		panel = new JPanel();
 		panel.setBackground(Color.BLACK);
@@ -55,8 +65,9 @@ public class VentanaInicio {
 		frame.getContentPane().add(panel);
 		
 		panel2 = new JPanel();
-		panel2.setBackground(Color.BLUE);
+		panel2.setBackground(Color.LIGHT_GRAY);
 		panel2.setBounds(625, 50, 325, 600);
+		panel2.setLayout(null);
 		frame.getContentPane().add(panel2);
 		
 		//JLabel
@@ -70,13 +81,82 @@ public class VentanaInicio {
 		lblOpciones.setBounds(625, 11, 109, 38);
 		frame.getContentPane().add(lblOpciones);
 		
-		//ImageIcon
-        this.cesped = new ImageIcon((new ImageIcon(getClass().getResource("/Imagenes/cesped.jpg")))
-        		.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+		JLabel lblP = new JLabel("PERSONAJE");
+		lblP.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblP.setBounds(115, 10, 130, 20);
+		panel2.add(lblP);
+		
+		JLabel lblH = new JLabel("HABILIDADES");
+		lblH.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblH.setBounds(110, 225, 150, 20);
+		panel2.add(lblH);
+		
+		JLabel lblF = new JLabel("FUNCIONES");
+		lblF.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblF.setBounds(115, 355, 150, 20);
+		panel2.add(lblF);
+		
+		JLabel lblNewLabel_1 = new JLabel("ARMAS :");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(15, 439, 54, 14);
+		panel2.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("MOVIMIENTO :");
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_1.setBounds(15, 389, 89, 14);
+		panel2.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("ITEMS:");
+		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_2.setBounds(15, 497, 54, 14);
+		panel2.add(lblNewLabel_1_2);
+		
+		lblPasos = new JLabel("PASOS: 0");
+		lblPasos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPasos.setBounds(34, 414, 118, 14);
+		panel2.add(lblPasos);
+		
+		lblPersonaje = new JLabel();
+		lblPersonaje.setBounds(75, 40, 175, 175);
+		//lblPersonaje.setIcon(cesped);
+		panel2.add(lblPersonaje);
+		
+		lblHabilidad = new JLabel();
+		lblHabilidad.setBounds(15, 250, 300, 100);
+		lblHabilidad.setIcon(cesped);
+		panel2.add(lblHabilidad);
 		
 		
+		//ComboBox
+		comboBoxArma = new JComboBox();
+		comboBoxArma.setBounds(34, 464, 182, 22);
+		panel2.add(comboBoxArma);
+		
+		comboBoxItem = new JComboBox();
+		comboBoxItem.setBounds(34, 522, 182, 22);
+		panel2.add(comboBoxItem);
+		
+		
+		//JButton
+		JButton btnNewButton = new JButton("ATACAR");
+		btnNewButton.setBounds(226, 464, 89, 23);
+		panel2.add(btnNewButton);
+		
+		JButton btnActivarMovimiento = new JButton("ACTIVAR MOVIMIENTO");
+		btnActivarMovimiento.setBounds(138, 410, 177, 23);
+		panel2.add(btnActivarMovimiento);
+		
+		JButton btnUsar = new JButton("USAR");
+		btnUsar.setBounds(226, 522, 89, 23);
+		panel2.add(btnUsar);
+		
+		JButton btnSaltarTurnoPersonaje = new JButton("SALTAR TURNO PERSONAJE");
+		btnSaltarTurnoPersonaje.setBounds(62, 566, 203, 23);
+		panel2.add(btnSaltarTurnoPersonaje);
+			
 		this.tablero = new JButton[20][20];
 		this.generarBotones();
+		this.tablero[0][0].setIcon(cesped);
 		frame.setVisible(true);
 	}
 	

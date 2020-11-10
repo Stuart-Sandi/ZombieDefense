@@ -24,7 +24,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	//CONSTRUCTORES
 	public ControladorZombieDefense() {
 		this.vInicio = new VentanaInicio(this);
-		this.app.mapa = new Mapa();
+		this.app = new Aplicacion();
 		pintarMapa();
 	}
 	
@@ -47,11 +47,12 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         }
 	}
 	
+	/*
 	private void pintarJugadores() {
 		for (Jugador jug : app.) {
 			
 		}
-	}
+	}*/
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

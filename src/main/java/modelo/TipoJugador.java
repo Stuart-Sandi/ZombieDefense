@@ -4,8 +4,8 @@ public enum TipoJugador{
 	//pasos, distanciaVision, vida, cantidadAcciones, experiencia;
 	Pistolero(8,8,100,3,10),
 	Sniper(5,5,80,3,20),
-	Tanque(7,7,150,3,25),
 	Ninja(17,17,75,3,15);
+	//Tanque(7,7,150,3,25);
 	
 	
 	public int pasos, distanciaVision, vida, cantidadAcciones, experiencia;
