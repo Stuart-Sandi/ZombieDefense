@@ -63,12 +63,16 @@ public class VentanaInicio {
 		panel.setBounds(10, 50, 600, 600 );
         panel.setLayout(new javax.swing.GroupLayout(panel));
 		frame.getContentPane().add(panel);
-		
+		panel.setFocusable(true);
 		panel2 = new JPanel();
 		panel2.setBackground(Color.LIGHT_GRAY);
 		panel2.setBounds(625, 50, 325, 600);
 		panel2.setLayout(null);
+		panel2.setFocusable(true);
+		panel.addKeyListener(controlador);
+		panel2.addKeyListener(controlador);
 		frame.getContentPane().add(panel2);
+		
 		
 		//JLabel
 		JLabel lblNewLabel = new JLabel("TABLERO");
@@ -173,7 +177,7 @@ public class VentanaInicio {
                 this.tablero[i][j].setBounds(30*i, 30*j, 30, 30);
                 this.tablero[i][j].setActionCommand(i+","+j);//i+","+j
                 this.tablero[i][j].addMouseListener(controlador);
-
+                
             }
         }
     }
