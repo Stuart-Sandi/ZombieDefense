@@ -9,7 +9,7 @@ public class Jugador extends Personaje{
 	public TipoJugador tipo;
 	public ArrayList<Habilidad> habilidades;
 	public HashMap<Integer, Item> inventario;
-	public Icon img;
+	//public Icon img;
 	
 	public Jugador(TipoJugador pTipo) {
 		super();

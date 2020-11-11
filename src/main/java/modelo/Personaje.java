@@ -3,10 +3,13 @@ package modelo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.Icon;
+
 public class Personaje {
 	public Posicion posicion;
 	public int pasos, distanciaVision, vida, cantidadAcciones, nivel, experiencia;
 	public Boolean vivo;
+	public Icon imagen;
 			   
 	public Personaje() {
 		super();
