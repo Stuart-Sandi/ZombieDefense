@@ -9,10 +9,11 @@ import controlador.Helpers;
 
 public class Aplicacion {
 	
-	public Bloque[][] bloques;
-	public Personaje[][] personajes;
-	public Edificacion[][] edificaciones;
-	public HashMap<Integer, GeneradorZombie> puntoSpawn;
+	public ArrayList <Bloque> bloques;
+	public ArrayList <Personaje> personajes;
+	public ArrayList <Edificacion> edificaciones;
+	
+	//public HashMap<Integer, GeneradorZombie> puntoSpawn;
 	public HashMap<String, Icon> imagenes;
 	public Mapa mapa;
 	public Icon imgBloque;
@@ -20,9 +21,9 @@ public class Aplicacion {
 	public Aplicacion() {
 		super();
 		this.mapa = new Mapa();
-		this.bloques = new Bloque[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
-		this.personajes = new Personaje[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
-		this.edificaciones = new Edificacion[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
+		this.bloques = new ArrayList<>();
+		this.personajes = new ArrayList<>();
+		this.edificaciones = new ArrayList<>();
 		this.imgBloque = Helpers.getImagenResized("cesped", ".jpg", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
 		generarTablero();
 		generarJugadores();
@@ -38,7 +39,6 @@ public class Aplicacion {
                 Bloque bloque = new Bloque(imgBloque);
                 Casilla<Bloque> casilla = new Casilla<Bloque>(bloque);
                 this.mapa.tablero[i][j] = casilla;
-                //this.bloques[i][j] = bloque;
 
             }
         }
@@ -48,7 +48,12 @@ public class Aplicacion {
 		
 		TipoJugador[] listTipoJugadores = TipoJugador.values();
 		ArrayList<Posicion> listPosiciones = new ArrayList<Posicion>(){ 
-            { 
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{ 
                 add(new Posicion(16, 8)); 
                 add(new Posicion(10, 3)); 
                 add(new Posicion(10, 8));  
@@ -58,7 +63,7 @@ public class Aplicacion {
 			
 			Jugador jug = new Jugador(listTipoJugadores[i], listPosiciones.get(i));
 			jug.imagen = Helpers.getImagenResized(listTipoJugadores[i].toString(), ".png",ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
-			this.personajes[jug.posicion.x][jug.posicion.y] = jug;
+			this.personajes.add(jug);
 			Casilla<Personaje> casilla = new Casilla<Personaje>(jug);
 			this.mapa.tablero[jug.posicion.x][jug.posicion.y] = casilla;
 		}
@@ -78,6 +83,7 @@ public class Aplicacion {
 			Posicion posicion = new Posicion(x,y);
 			Edificacion muro = new Edificacion(ValoresDefecto.vidaMuro,posicion,imgMuro);
 			Casilla<Edificacion> casilla = new Casilla<Edificacion>(muro);
+			this.edificaciones.add(muro);
 			this.mapa.tablero[x][y] = casilla;
 			
 		}
@@ -86,6 +92,7 @@ public class Aplicacion {
 		Posicion posicion = new Posicion(19,0);
 		Edificacion base = new Edificacion(ValoresDefecto.vidaMuro,posicion,imgBase);
 		Casilla<Edificacion> casilla = new Casilla<Edificacion>(base);
+		this.edificaciones.add(base);
 		this.mapa.tablero[19][0] = casilla;
 		
 	}

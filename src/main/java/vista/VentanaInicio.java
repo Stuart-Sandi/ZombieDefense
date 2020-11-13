@@ -46,6 +46,7 @@ public class VentanaInicio {
 		
 		//JFRAME
 		frame = new JFrame();
+		//frame.setFocusable(false);
 		frame.setBounds(100, 100, 980, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -64,14 +65,16 @@ public class VentanaInicio {
         panel.setLayout(new javax.swing.GroupLayout(panel));
 		frame.getContentPane().add(panel);
 		panel.setFocusable(true);
+		
 		panel2 = new JPanel();
 		panel2.setBackground(Color.LIGHT_GRAY);
 		panel2.setBounds(625, 50, 325, 600);
 		panel2.setLayout(null);
 		panel2.setFocusable(true);
+		frame.getContentPane().add(panel2);
+		
 		panel.addKeyListener(controlador);
 		panel2.addKeyListener(controlador);
-		frame.getContentPane().add(panel2);
 		
 		
 		//JLabel
@@ -87,12 +90,12 @@ public class VentanaInicio {
 		
 		JLabel lblP = new JLabel("PERSONAJE");
 		lblP.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblP.setBounds(115, 10, 130, 20);
+		lblP.setBounds(10, 10, 130, 20);
 		panel2.add(lblP);
 		
 		JLabel lblH = new JLabel("HABILIDADES");
 		lblH.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblH.setBounds(110, 225, 150, 20);
+		lblH.setBounds(10, 225, 150, 20);
 		panel2.add(lblH);
 		
 		JLabel lblF = new JLabel("FUNCIONES");
@@ -121,22 +124,22 @@ public class VentanaInicio {
 		panel2.add(lblPasos);
 		
 		lblPersonaje = new JLabel();
-		lblPersonaje.setBounds(75, 40, 175, 175);
-		//lblPersonaje.setIcon(cesped);
+		lblPersonaje.setBounds(10, 40, 175, 175);
 		panel2.add(lblPersonaje);
 		
 		lblHabilidad = new JLabel();
 		lblHabilidad.setBounds(15, 250, 300, 100);
-		lblHabilidad.setIcon(cesped);
 		panel2.add(lblHabilidad);
 		
 		
 		//ComboBox
 		comboBoxArma = new JComboBox();
+		comboBoxArma.setFocusable(false);
 		comboBoxArma.setBounds(34, 464, 182, 22);
 		panel2.add(comboBoxArma);
 		
 		comboBoxItem = new JComboBox();
+		comboBoxItem.setFocusable(false);
 		comboBoxItem.setBounds(34, 522, 182, 22);
 		panel2.add(comboBoxItem);
 		
@@ -144,18 +147,22 @@ public class VentanaInicio {
 		//JButton
 		JButton btnNewButton = new JButton("ATACAR");
 		btnNewButton.setBounds(226, 464, 89, 23);
+		btnNewButton.setFocusable(false);
 		panel2.add(btnNewButton);
 		
 		JButton btnActivarMovimiento = new JButton("ACTIVAR MOVIMIENTO");
 		btnActivarMovimiento.setBounds(138, 410, 177, 23);
+		btnActivarMovimiento.setFocusable(false);
 		panel2.add(btnActivarMovimiento);
 		
 		JButton btnUsar = new JButton("USAR");
 		btnUsar.setBounds(226, 522, 89, 23);
+		btnUsar.setFocusable(false);
 		panel2.add(btnUsar);
 		
 		JButton btnSaltarTurnoPersonaje = new JButton("SALTAR TURNO PERSONAJE");
 		btnSaltarTurnoPersonaje.setBounds(62, 566, 203, 23);
+		btnSaltarTurnoPersonaje.setFocusable(false);
 		panel2.add(btnSaltarTurnoPersonaje);
 			
 		this.tablero = new JButton[20][20];
@@ -173,6 +180,7 @@ public class VentanaInicio {
                 
                 this.tablero[i][j] = new JButton();
                 this.tablero[i][j].setOpaque(true);
+                this.tablero[i][j].setFocusable(false);
                 this.panel.add(this.tablero[i][j]);
                 this.tablero[i][j].setBounds(30*i, 30*j, 30, 30);
                 this.tablero[i][j].setActionCommand(i+","+j);//i+","+j

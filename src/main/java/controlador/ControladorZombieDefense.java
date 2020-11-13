@@ -12,6 +12,8 @@ import javax.swing.JButton;
 
 import modelo.Aplicacion;
 import modelo.Bloque;
+import modelo.Casilla;
+import modelo.Direccion;
 import modelo.Edificacion;
 import modelo.Jugador;
 import modelo.Personaje;
@@ -82,8 +84,6 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         String identificadorBoton = botonTemp1.getActionCommand();
         int x = Integer.parseInt(identificadorBoton.substring(0,identificadorBoton.indexOf(",")));
         int y = Integer.parseInt(identificadorBoton.substring(1+identificadorBoton.indexOf(",")));
-        //this.vInicio.tablero[x][y].setEnabled(false);
-        //System.out.println("X: "+x+"  /  Y:"+y);
         seleccionarJugador(this.app.mapa.tablero[x][y].elemento);
         mostrarInformacion();
 		
@@ -93,12 +93,19 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		try {
 			this.jugSeleccionado = (Jugador) elemento;
 		} catch (Exception e) {
-			// No es necesario manejar la excepcion
+			reestablecerValores();
 		}
 		
 		
 	}
 	
+	private void reestablecerValores() {
+		this.jugSeleccionado = null; 
+		this.vInicio.lblPersonaje.setIcon(null);
+		this.vInicio.lblPasos.setText("PASOS: 0");
+		
+	}
+
 	private void mostrarInformacion() {
 		/*
 		 * Muestra la informacion de cada personaje en la pantalla
@@ -108,37 +115,89 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 			Icon icon = Helpers.getImagenResized(this.jugSeleccionado.tipo.toString(), ".png", 
 					this.vInicio.lblPersonaje.getHeight(), this.vInicio.lblPersonaje.getWidth());
 			this.vInicio.lblPersonaje.setIcon(icon);
+			
+			this.vInicio.lblPasos.setText("PASOS: "+this.jugSeleccionado.pasos);
 		}
 	}
 
-//	@Override
-//	public void keyTyped(KeyEvent e) {
-//		System.out.println("Llegoooo");
-//		if(this.jugSeleccionado != null) {
-//			System.out.println("LLego aca");
-//			moverJugador(e);
-//		}
-//		
-//	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		if (this.jugSeleccionado != null) {
+			evento(e);
+		}
+	}
 	
-	private void moverJugador(KeyEvent e) {
+	private void evento(KeyEvent e) {
+		
+		boolean validar = false;
+		Direccion direccion = null;
 		
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			System.out.println("arriba");
+			validar = validarCampoVacio(Direccion.ARRIBA,this.jugSeleccionado);
+			direccion = Direccion.ARRIBA;
 			break;
 		case KeyEvent.VK_RIGHT:
-			System.out.println("derecha");
+			validar = validarCampoVacio(Direccion.DERECHA,this.jugSeleccionado);
+			direccion = Direccion.DERECHA;
 			break;
 		case KeyEvent.VK_DOWN:
-			System.out.println("abajo");
+			validar = validarCampoVacio(Direccion.ABAJO,this.jugSeleccionado);
+			direccion = Direccion.ABAJO;
 			break;
 		case KeyEvent.VK_LEFT:
-			System.out.println("izquierda");
+			validar = validarCampoVacio(Direccion.IZQUIERDA,this.jugSeleccionado);
+			direccion = Direccion.IZQUIERDA;
 			break;
 		default:
 			break;
 		}
+		
+		if (validar) {
+			moverJugador(direccion);
+		}
+		
+	}
+
+	private void moverJugador(Direccion direccion) {
+		
+		//Genera la nueva posicion
+		int x = this.jugSeleccionado.posicion.x + direccion.x;
+		int y = this.jugSeleccionado.posicion.y + direccion.y;
+		
+		this.app.mapa.tablero[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y].elemento = 
+				this.app.mapa.tablero[x][y].elemento;
+		
+		//Actualiza la posicion 
+		this.jugSeleccionado.posicion.x = x;
+		this.jugSeleccionado.posicion.y = y;
+		
+		this.app.mapa.tablero[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y].elemento = this.jugSeleccionado;
+		
+		pintarMapa();
+		
+		
+	}
+
+	private boolean validarCampoVacio(Direccion direccion, Personaje personaje) {
+		/*
+		 * Se encarga de validar que la nueva posicion del jugador no sea
+		 */
+		
+		int x = personaje.posicion.x + direccion.x;
+		int y = personaje.posicion.y + direccion.y;
+		
+		String dato = app.mapa.tablero[x][y].elemento.getClass().getSimpleName();
+		
+		System.out.println(dato);
+		
+		if (("Bloque").equals(dato)) {
+			System.out.println("Llegoooooo");
+			return true;
+		}
+		return false;
+		
 	}
 
 	@Override
@@ -166,20 +225,12 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		 System.out.println("1");
-		
-	}
-
-	@Override
 	public void keyReleased(KeyEvent arg0) {
-		System.out.println("2");
 		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		System.out.println("3");
 		
 	}
 
