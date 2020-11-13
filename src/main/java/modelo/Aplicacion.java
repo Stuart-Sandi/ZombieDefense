@@ -16,7 +16,6 @@ public class Aplicacion {
 	//public HashMap<Integer, GeneradorZombie> puntoSpawn;
 	public HashMap<String, Icon> imagenes;
 	public Mapa mapa;
-	public Icon imgBloque;
 	
 	public Aplicacion() {
 		super();
@@ -24,24 +23,7 @@ public class Aplicacion {
 		this.bloques = new ArrayList<>();
 		this.personajes = new ArrayList<>();
 		this.edificaciones = new ArrayList<>();
-		this.imgBloque = Helpers.getImagenResized("cesped", ".jpg", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
-		generarTablero();
 		generarJugadores();
-		generarObstaculos();
-	}
-
-	//cesped.jpg
-	public void generarTablero() {
-		
-		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
-            
-            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
-                Bloque bloque = new Bloque(imgBloque);
-                Casilla<Bloque> casilla = new Casilla<Bloque>(bloque);
-                this.mapa.tablero[i][j] = casilla;
-
-            }
-        }
 	}
 		
 	public void generarJugadores() {
@@ -70,31 +52,10 @@ public class Aplicacion {
 		
 	}
 	
-	public void generarObstaculos() {
+	public void generarSpawnPoint() {
 		
-		Icon imgMuro = Helpers.getImagenResized("muro", ".jpg", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
-		Icon imgBase = Helpers.getImagenResized("Base", ".png", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
-		
-		for (int i = 0; i < ValoresDefecto.listaPosMuroX.length; i++) {
-			
-			int x = ValoresDefecto.listaPosMuroX[i];
-			int y = ValoresDefecto.listaPosMuroY[i];
-			
-			Posicion posicion = new Posicion(x,y);
-			Edificacion muro = new Edificacion(ValoresDefecto.vidaMuro,posicion,imgMuro);
-			Casilla<Edificacion> casilla = new Casilla<Edificacion>(muro);
-			this.edificaciones.add(muro);
-			this.mapa.tablero[x][y] = casilla;
-			
-		}
-		
-		//Agrega la base
-		Posicion posicion = new Posicion(19,0);
-		Edificacion base = new Edificacion(ValoresDefecto.vidaMuro,posicion,imgBase);
-		Casilla<Edificacion> casilla = new Casilla<Edificacion>(base);
-		this.edificaciones.add(base);
-		this.mapa.tablero[19][0] = casilla;
-		
+		Posicion posicion = new Posicion();
+		Spawn spawn = new Spawn(null);
 	}
 	
 }

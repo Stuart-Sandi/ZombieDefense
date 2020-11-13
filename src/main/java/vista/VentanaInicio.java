@@ -19,11 +19,26 @@ import java.awt.event.ActionEvent;
 public class VentanaInicio {
 
 	public JButton[][] tablero;
+	
 	private JFrame frame;
-	public JLabel lblPersonaje, lblHabilidad, lblPasos;
-	public JComboBox comboBoxArma, comboBoxItem;
-	public JPanel panel, panel2;
-	public ImageIcon cesped;
+	
+	public JLabel 
+			lblTitulo, 
+			lblOpciones,
+			lblPersonaje,
+			lblP,
+			lblH,
+			lblF,
+			lblHabilidad, 
+			lblPasos;
+	
+	public JComboBox 
+			comboBoxArma, 
+			comboBoxItem;
+	
+	public JPanel 
+			panel, 
+			panel2;
 	
 	private ControladorZombieDefense controlador;
 
@@ -54,10 +69,6 @@ public class VentanaInicio {
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Zombie Defense");
 		
-		//ImageIcon
-        this.cesped = new ImageIcon((new ImageIcon(getClass().getResource("/Imagenes/muro1.jpg")))
-        		.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-		
 		//JPANEL
 		panel = new JPanel();
 		panel.setBackground(Color.BLACK);
@@ -78,45 +89,45 @@ public class VentanaInicio {
 		
 		
 		//JLabel
-		JLabel lblNewLabel = new JLabel("TABLERO");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		lblNewLabel.setBounds(10, 11, 109, 38);
-		frame.getContentPane().add(lblNewLabel);
+		lblTitulo = new JLabel("TABLERO");
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		lblTitulo.setBounds(10, 11, 109, 38);
+		frame.getContentPane().add(lblTitulo);
 		
-		JLabel lblOpciones = new JLabel("OPCIONES");
+		lblOpciones = new JLabel("OPCIONES");
 		lblOpciones.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
 		lblOpciones.setBounds(625, 11, 109, 38);
 		frame.getContentPane().add(lblOpciones);
 		
-		JLabel lblP = new JLabel("PERSONAJE");
+		lblP = new JLabel("PERSONAJE");
 		lblP.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblP.setBounds(10, 10, 130, 20);
 		panel2.add(lblP);
 		
-		JLabel lblH = new JLabel("HABILIDADES");
+		lblH = new JLabel("HABILIDADES");
 		lblH.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblH.setBounds(10, 225, 150, 20);
 		panel2.add(lblH);
 		
-		JLabel lblF = new JLabel("FUNCIONES");
+		lblF = new JLabel("FUNCIONES");
 		lblF.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblF.setBounds(115, 355, 150, 20);
 		panel2.add(lblF);
 		
-		JLabel lblNewLabel_1 = new JLabel("ARMAS :");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(15, 439, 54, 14);
-		panel2.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("MOVIMIENTO :");
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setBounds(15, 389, 89, 14);
-		panel2.add(lblNewLabel_1_1);
-		
-		JLabel lblNewLabel_1_2 = new JLabel("ITEMS:");
-		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_2.setBounds(15, 497, 54, 14);
-		panel2.add(lblNewLabel_1_2);
+//		JLabel lblNewLabel_1 = new JLabel("ARMAS :");
+//		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblNewLabel_1.setBounds(15, 439, 54, 14);
+//		panel2.add(lblNewLabel_1);
+//		
+//		JLabel lblNewLabel_1_1 = new JLabel("MOVIMIENTO :");
+//		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblNewLabel_1_1.setBounds(15, 389, 89, 14);
+//		panel2.add(lblNewLabel_1_1);
+//		
+//		JLabel lblNewLabel_1_2 = new JLabel("ITEMS:");
+//		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblNewLabel_1_2.setBounds(15, 497, 54, 14);
+//		panel2.add(lblNewLabel_1_2);
 		
 		lblPasos = new JLabel("PASOS: 0");
 		lblPasos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -167,7 +178,6 @@ public class VentanaInicio {
 			
 		this.tablero = new JButton[20][20];
 		this.generarBotones();
-		this.tablero[0][0].setIcon(cesped);
 		frame.setVisible(true);
 	}
 	
