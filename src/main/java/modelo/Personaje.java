@@ -10,21 +10,23 @@ public class Personaje {
 	public int pasos, distanciaVision, vida, cantidadAcciones, nivel, experiencia;
 	public Boolean vivo;
 	public Icon imagen;
-	public ArrayList<Habilidades> habilidades;
+	public ArrayList<Habilidad> habilidades;
 	public Personaje() {
 		super();
 		this.posicion = new Posicion();
-		
+		this.nivel = 100;
 	}
 	
 	public Personaje(int x, int y) {
 		super();
 		this.posicion = new Posicion(x, y);
+		this.nivel = 100;
 	}
 	
 	public Personaje(Posicion pPosicion) {
 		super();
 		this.posicion = pPosicion;
+		this.nivel = 100;
 	}
 	
 	public void Atacar(Posicion pPosicion, Personaje pPersonaje) {

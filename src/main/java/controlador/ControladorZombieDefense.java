@@ -162,6 +162,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 			break;
 		}
 		if (direccion != null && validarCampoVacio(direccion)) {
+			
 			moverJugador(direccion);
 		}
 		

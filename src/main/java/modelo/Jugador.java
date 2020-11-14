@@ -20,6 +20,7 @@ public class Jugador extends Personaje{
 		this.cantidadAcciones = pTipo.cantidadAcciones;
 		this.distanciaVision = pTipo.distanciaVision;
 		this.experiencia = pTipo.experiencia;
+		this.habilidades = pTipo.habilidades.habilidades;
 		this.vivo = true;
 		this.inventario = new HashMap<Integer, Item>();
 	}
@@ -34,7 +35,7 @@ public class Jugador extends Personaje{
 		this.distanciaVision = pTipo.distanciaVision;
 		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
-		this.habilidades = new ArrayList<Habilidades>();
+		this.habilidades = Habilidades.Pistolero.habilidades;
 		this.inventario = new HashMap<Integer, Item>();
 	}
 
@@ -48,14 +49,15 @@ public class Jugador extends Personaje{
 		this.distanciaVision = pTipo.distanciaVision;
 		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
+		this.habilidades = pTipo.habilidades.habilidades;
 		this.inventario = new HashMap<Integer, Item>();
 	}
 	
 	public void Mover(Direccion pDireccion) {
-		//TODO revisar bloque a mover, por si una habilidad le deja saltar el muro
+		
 		Posicion posicionAnterior = posicion.Mover(pDireccion);
 		Boolean sePuedeMover = revisarMoviemiento();
-		
+		System.out.println(sePuedeMover);
 		if(!sePuedeMover) {
 			this.posicion = posicionAnterior;
 		}
@@ -63,7 +65,14 @@ public class Jugador extends Personaje{
 
 	private Boolean revisarMoviemiento() {
 		Casilla[][] tablero  = Aplicacion.getInstance().mapa.tablero;
-		return false;
+
+		if(tablero[posicion.x][posicion.y].elemento.getClass().getSimpleName() == Edificacion.class.getSimpleName()) {
+			if( tipo == TipoJugador.Ninja & Habilidad.Escalar.nivel <= this.nivel) {
+				return true;
+			}
+			return false;
+		}
+		return true;
 	}
 	
 	//ganarXP

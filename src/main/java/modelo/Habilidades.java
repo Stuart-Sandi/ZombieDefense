@@ -1,18 +1,16 @@
 package modelo;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public enum Habilidades {
-	Pasos(4),
-	AccionesPorTurno(5),
-	DannoExtra(6),
-	VidaExtra(7),
-	Defensa(8),
-	ProbEvadirAtaques(9),
-	ProbExperienciaExtra(10),
-	Escalar(15);
+	Pistolero(Arrays.asList(Habilidad.Pasos, Habilidad.DannoExtra, Habilidad.Defensa)),
+	Sniper(Arrays.asList(Habilidad.AccionesPorTurno, Habilidad.VidaExtra, Habilidad.ProbEvadirAtaques)),
+	Ninja(Arrays.asList(Habilidad.Escalar, Habilidad.ProbExperienciaExtra, Habilidad.Pasos));
 	
-	public int nivel;
-	Habilidades(int i) {
-		this.nivel = i;
+	public java.util.ArrayList<Habilidad> habilidades;
+	Habilidades(List<Habilidad> asList) {
+		habilidades  = new ArrayList<Habilidad>(asList);
 	}
 	
 	
