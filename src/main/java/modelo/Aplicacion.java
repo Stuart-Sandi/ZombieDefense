@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import controlador.Helpers;
 
 public class Aplicacion {
-	
+	static Aplicacion self;
 	public ArrayList <Bloque> bloques;
 	public ArrayList <Personaje> personajes;
 	public ArrayList <Edificacion> edificaciones;
@@ -16,6 +16,12 @@ public class Aplicacion {
 	//public HashMap<Integer, GeneradorZombie> puntoSpawn;
 	public HashMap<String, Icon> imagenes;
 	public Mapa mapa;
+	
+	public static Aplicacion getInstance() {
+		if (self == null)
+			self = new Aplicacion();
+		return self;
+	}
 	
 	public Aplicacion() {
 		super();
@@ -36,9 +42,9 @@ public class Aplicacion {
 			private static final long serialVersionUID = 1L;
 
 			{ 
-                add(new Posicion(16, 8)); 
-                add(new Posicion(10, 3)); 
-                add(new Posicion(10, 8));  
+                add(new Posicion(8, 16)); 
+                add(new Posicion(3, 10)); 
+                add(new Posicion(8, 10));  
             } 
         };
 		for (int i = 0; i < listPosiciones.size(); i++) {
@@ -46,8 +52,7 @@ public class Aplicacion {
 			Jugador jug = new Jugador(listTipoJugadores[i], listPosiciones.get(i));
 			jug.imagen = Helpers.getImagenResized(listTipoJugadores[i].toString(), ".png",ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
 			this.personajes.add(jug);
-			Casilla<Personaje> casilla = new Casilla<Personaje>(jug);
-			this.mapa.tablero[jug.posicion.x][jug.posicion.y] = casilla;
+			this.mapa.tableroPersonajes[jug.posicion.x][jug.posicion.y] = jug;
 		}
 		
 	}

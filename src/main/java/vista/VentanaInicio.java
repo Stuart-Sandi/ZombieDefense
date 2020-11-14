@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controlador.ControladorZombieDefense;
+import modelo.Posicion;
+import modelo.ValoresDefecto;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -176,7 +178,7 @@ public class VentanaInicio {
 		btnSaltarTurnoPersonaje.setFocusable(false);
 		panel2.add(btnSaltarTurnoPersonaje);
 			
-		this.tablero = new JButton[20][20];
+		this.tablero = new JButton[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
 		this.generarBotones();
 		frame.setVisible(true);
 	}
@@ -184,17 +186,17 @@ public class VentanaInicio {
 	
 	private void generarBotones(){
         
-        for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
+        for (int i = 0; i < this.tablero.length; i++) {
             
-            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
+            for (int j = 0; j < this.tablero[0].length; j++) {
                 
                 this.tablero[i][j] = new JButton();
                 this.tablero[i][j].setOpaque(true);
                 this.tablero[i][j].setFocusable(false);
                 this.panel.add(this.tablero[i][j]);
-                this.tablero[i][j].setBounds(30*i, 30*j, 30, 30);
-                this.tablero[i][j].setActionCommand(i+","+j);//i+","+j
+                this.tablero[i][j].setBounds(30*j, 30*i, 30, 30);
                 this.tablero[i][j].addMouseListener(controlador);
+                this.tablero[i][j].setAction(new Posicion(i,j));
                 
             }
         }

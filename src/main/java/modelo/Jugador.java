@@ -6,10 +6,10 @@ import java.util.HashMap;
 import javax.swing.Icon;
 
 public class Jugador extends Personaje{
+	
 	public TipoJugador tipo;
-	public ArrayList<Habilidad> habilidades;
 	public HashMap<Integer, Item> inventario;
-	//public Icon img;
+
 	
 	public Jugador(TipoJugador pTipo) {
 		super();
@@ -21,7 +21,6 @@ public class Jugador extends Personaje{
 		this.distanciaVision = pTipo.distanciaVision;
 		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
-		this.habilidades = new ArrayList<Habilidad>();
 		this.inventario = new HashMap<Integer, Item>();
 	}
 	
@@ -35,7 +34,7 @@ public class Jugador extends Personaje{
 		this.distanciaVision = pTipo.distanciaVision;
 		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
-		this.habilidades = new ArrayList<Habilidad>();
+		this.habilidades = new ArrayList<Habilidades>();
 		this.inventario = new HashMap<Integer, Item>();
 	}
 
@@ -49,8 +48,23 @@ public class Jugador extends Personaje{
 		this.distanciaVision = pTipo.distanciaVision;
 		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
-		this.habilidades = new ArrayList<Habilidad>();
 		this.inventario = new HashMap<Integer, Item>();
 	}
+	
+	public void Mover(Direccion pDireccion) {
+		//TODO revisar bloque a mover, por si una habilidad le deja saltar el muro
+		Posicion posicionAnterior = posicion.Mover(pDireccion);
+		Boolean sePuedeMover = revisarMoviemiento();
+		
+		if(!sePuedeMover) {
+			this.posicion = posicionAnterior;
+		}
+	}
 
+	private Boolean revisarMoviemiento() {
+		Casilla[][] tablero  = Aplicacion.getInstance().mapa.tablero;
+		return false;
+	}
+	
+	//ganarXP
 }

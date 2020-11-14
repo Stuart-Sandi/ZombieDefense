@@ -10,7 +10,7 @@ public class Personaje {
 	public int pasos, distanciaVision, vida, cantidadAcciones, nivel, experiencia;
 	public Boolean vivo;
 	public Icon imagen;
-			   
+	public ArrayList<Habilidades> habilidades;
 	public Personaje() {
 		super();
 		this.posicion = new Posicion();
@@ -37,4 +37,6 @@ public class Personaje {
 			this.vivo = false;
 		}
 	}
+	
+	
 }

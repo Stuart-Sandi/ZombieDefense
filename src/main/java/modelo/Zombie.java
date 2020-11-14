@@ -11,7 +11,6 @@ public class Zombie extends Personaje{
 		this.pasos = pTipo.pasos;
 		this.cantidadAcciones = pTipo.cantidadAcciones;
 		this.distanciaVision = pTipo.distanciaVision;
-		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
 	}
 
@@ -23,7 +22,6 @@ public class Zombie extends Personaje{
 		this.pasos = pTipo.pasos;
 		this.cantidadAcciones = pTipo.cantidadAcciones;
 		this.distanciaVision = pTipo.distanciaVision;
-		this.experiencia = pTipo.experiencia;
 		this.vivo = true;
 	}
 	

@@ -12,7 +12,7 @@ public interface ValoresDefecto {
 			   anchoTablero = 20,
 			   altoTablero = 20,
 			   imagenTablero = 30,
-			   posBase[] = {19,0},
-			   listaPosMuroX[] = {11,11,11,11,11,11,11,13,14,15,16,17,18,19},
-			   listaPosMuroY[] = {0,1,2,3,4,5,7,7,7,7,7,7,7,7};
+			   posBase[] = {0,19},
+			   listaPosMuroY[] = {11,11,11,11,11,11,11,13,14,15,16,17,18,19},
+			   listaPosMuroX[] = {0,1,2,3,4,5,7,7,7,7,7,7,7,7};
 }

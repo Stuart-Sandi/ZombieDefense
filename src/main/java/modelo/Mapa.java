@@ -1,8 +1,4 @@
 package modelo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.swing.Icon;
 
 import controlador.Helpers;
@@ -10,6 +6,7 @@ import controlador.Helpers;
 public class Mapa {
 	
 	public Casilla[][] tablero;
+	public Personaje[][] tableroPersonajes;
 	public Icon imgBloque, imgBase;
 	private Posicion posicionBase;
 	
@@ -19,6 +16,7 @@ public class Mapa {
 		this.imgBloque = Helpers.getImagenResized("cesped", ".jpg", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
 		this.imgBase = Helpers.getImagenResized("Base", ".png", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
 		this.tablero = new Casilla[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
+		this.tableroPersonajes = new Personaje[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
 		this.generarTablero();
 		this.generarObstaculos();
 		this.generarBase();
@@ -31,13 +29,13 @@ public class Mapa {
 	
 	public void generarTablero() {
 		
-		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
+		for (int i = 0; i < modelo.ValoresDefecto.anchoTablero; i++) {
             
-            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
+            for (int j = 0; j < modelo.ValoresDefecto.altoTablero; j++) {
                 Bloque bloque = new Bloque(imgBloque);
                 Casilla<Bloque> casilla = new Casilla<Bloque>(bloque);
                 tablero[i][j] = casilla;
-
+                
             }
         }
 	}

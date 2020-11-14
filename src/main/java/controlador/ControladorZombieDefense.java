@@ -17,6 +17,7 @@ import modelo.Direccion;
 import modelo.Edificacion;
 import modelo.Jugador;
 import modelo.Personaje;
+import modelo.Posicion;
 import vista.VentanaInicio;
 
 public class ControladorZombieDefense implements ActionListener, MouseListener, KeyListener {
@@ -29,9 +30,9 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	//CONSTRUCTORES
 	public ControladorZombieDefense() {
 		this.vInicio = new VentanaInicio(this);
-		this.app = new Aplicacion();
+		this.app = Aplicacion.getInstance();
 		pintarMapa();
-		
+		pintarPersonajes();
 	}
 	
 	//METODOS
@@ -46,7 +47,6 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	private void pintarMapa() {
 		
 		Icon img = null;
-		Personaje personaje;
 		Bloque bloque;
 		Edificacion edificacion;
 		
@@ -57,11 +57,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
             	String dato = app.mapa.tablero[i][j].elemento.getClass().getSimpleName();
 
             	switch (dato) {
-            	
-            	case "Jugador":
-            		personaje = (Personaje) app.mapa.tablero[i][j].elemento; img = personaje.imagen;
-            		break;
-            		
+
             	case "Edificacion":
             		edificacion = (Edificacion) app.mapa.tablero[i][j].elemento;img = edificacion.imagen;
             		break;
@@ -76,22 +72,39 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         }
 	}
 	
-
+	public void pintarPersonajes() {
+		
+		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
+            
+            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
+            	if(app.mapa.tableroPersonajes[i][j] != null) {
+            		Personaje personaje = app.mapa.tableroPersonajes[i][j]; 
+            		Icon img = personaje.imagen;
+            		this.vInicio.tablero[i][j].setIcon(img);
+            	}
+            		
+            	
+            }
+		}
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		
 		JButton botonTemp1 = (JButton)arg0.getComponent();
-        String identificadorBoton = botonTemp1.getActionCommand();
-        int x = Integer.parseInt(identificadorBoton.substring(0,identificadorBoton.indexOf(",")));
-        int y = Integer.parseInt(identificadorBoton.substring(1+identificadorBoton.indexOf(",")));
-        seleccionarJugador(this.app.mapa.tablero[x][y].elemento);
+        modelo.Posicion posicionBoton = (Posicion) botonTemp1.getAction();
+        int x = posicionBoton.x;
+        int y = posicionBoton.y;
+        
+        seleccionarJugador(this.app.mapa.tableroPersonajes[x][y]);
         mostrarInformacion();
+        //System.out.println("X: "+x+" Y: "+y);
 		
 	}
 	
-	private void seleccionarJugador(Object elemento) {
+	private void seleccionarJugador(Personaje pJugador) {
 		try {
-			this.jugSeleccionado = (Jugador) elemento;
+			this.jugSeleccionado = (Jugador) pJugador;
 		} catch (Exception e) {
 			reestablecerValores();
 		}
@@ -130,31 +143,25 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	
 	private void evento(KeyEvent e) {
 		
-		boolean validar = false;
 		Direccion direccion = null;
 		
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			validar = validarCampoVacio(Direccion.ARRIBA,this.jugSeleccionado);
 			direccion = Direccion.ARRIBA;
 			break;
 		case KeyEvent.VK_RIGHT:
-			validar = validarCampoVacio(Direccion.DERECHA,this.jugSeleccionado);
 			direccion = Direccion.DERECHA;
 			break;
 		case KeyEvent.VK_DOWN:
-			validar = validarCampoVacio(Direccion.ABAJO,this.jugSeleccionado);
 			direccion = Direccion.ABAJO;
 			break;
 		case KeyEvent.VK_LEFT:
-			validar = validarCampoVacio(Direccion.IZQUIERDA,this.jugSeleccionado);
 			direccion = Direccion.IZQUIERDA;
 			break;
 		default:
 			break;
 		}
-		
-		if (validar) {
+		if (direccion != null && validarCampoVacio(direccion)) {
 			moverJugador(direccion);
 		}
 		
@@ -163,40 +170,26 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	private void moverJugador(Direccion direccion) {
 		
 		//Genera la nueva posicion
-		int x = this.jugSeleccionado.posicion.x + direccion.x;
-		int y = this.jugSeleccionado.posicion.y + direccion.y;
-		
-		this.app.mapa.tablero[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y].elemento = 
-				this.app.mapa.tablero[x][y].elemento;
-		
-		//Actualiza la posicion 
-		this.jugSeleccionado.posicion.x = x;
-		this.jugSeleccionado.posicion.y = y;
-		
-		this.app.mapa.tablero[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y].elemento = this.jugSeleccionado;
+		this.app.mapa.tableroPersonajes[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y] = null;
+		this.jugSeleccionado.Mover(direccion);
+		this.app.mapa.tableroPersonajes[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y] = this.jugSeleccionado;
 		
 		pintarMapa();
-		
+		pintarPersonajes();
 		
 	}
 
-	private boolean validarCampoVacio(Direccion direccion, Personaje personaje) {
+	private boolean validarCampoVacio(Direccion direccion) {
 		/*
 		 * Se encarga de validar que la nueva posicion del jugador no sea
 		 */
 		
-		int x = personaje.posicion.x + direccion.x;
-		int y = personaje.posicion.y + direccion.y;
+		int x = this.jugSeleccionado.posicion.x + direccion.x;
+		int y = this.jugSeleccionado.posicion.y + direccion.y;
 		
-		String dato = app.mapa.tablero[x][y].elemento.getClass().getSimpleName();
+		Personaje jug = app.mapa.tableroPersonajes[x][y];
 		
-		System.out.println(dato);
-		
-		if (("Bloque").equals(dato)) {
-			System.out.println("Llegoooooo");
-			return true;
-		}
-		return false;
+		return jug == null;
 		
 	}
 

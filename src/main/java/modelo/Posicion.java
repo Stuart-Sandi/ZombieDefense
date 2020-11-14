@@ -1,7 +1,8 @@
 package modelo;
 
-	
-public	class Posicion{
+import java.awt.event.ActionEvent;
+
+public	class Posicion extends javax.swing.AbstractAction{
 	
 	public int x = 0, y = 0;
 
@@ -45,6 +46,17 @@ public	class Posicion{
 	
 		return ((Posicion)obj).x == this.x & ((Posicion)obj).y == this.y;
 	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String toString() {
+		return "Posicion X: " + x + " Y: " + y;
+	}
+	
+	
 	
 }
 
