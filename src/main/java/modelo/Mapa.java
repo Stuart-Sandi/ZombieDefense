@@ -1,4 +1,7 @@
 package modelo;
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.Icon;
 
 import controlador.Helpers;
@@ -6,6 +9,7 @@ import controlador.Helpers;
 public class Mapa {
 	
 	public Casilla[][] tablero;
+	public ArrayList<Spawn> puntosSpawn;
 	public Personaje[][] tableroPersonajes;
 	public Icon imgBloque, imgBase;
 	private Posicion posicionBase;
@@ -17,14 +21,45 @@ public class Mapa {
 		this.imgBase = Helpers.getImagenResized("Base", ".png", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
 		this.tablero = new Casilla[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
 		this.tableroPersonajes = new Personaje[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
+		this.puntosSpawn = new ArrayList<>();
 		this.generarTablero();
 		this.generarObstaculos();
+		this.generarSpawnPoint();
 		this.generarBase();
 	}
 	
 	public Posicion encontrarCasillaVacia() {
 		
-		return null;
+		Posicion posicion;
+		ArrayList<Integer> listaX = new ArrayList<>();
+		ArrayList<Integer> listaY = new ArrayList<>();
+		
+		while (true) {
+			
+			int x = (new Random()).nextInt(19-8+1) + 8;
+			int y = (new Random()).nextInt(19-12+1) + 12;
+			
+			System.out.println("X: "+x+" Y: "+y);
+			if ((this.tablero[x][y].elemento.getClass().getSimpleName()).equals("Bloque")) {
+				posicion = new Posicion(x,y);
+				break;
+			}
+			
+			//Hace estos if en caso de no quedar mas espacio para generar spawns
+			if (!listaX.contains(x)) {
+				listaX.add(x);
+			}
+			if (!listaY.contains(y)) {
+				listaX.add(y);
+			}
+			
+			if (listaX.size() == 7 && listaY.size() == 11) {
+				return null;
+			}
+		}
+		
+		
+		return posicion;
 	}
 	
 	public void generarTablero() {
@@ -66,5 +101,27 @@ public class Mapa {
 		tablero[this.posicionBase.x][this.posicionBase.y] = casilla;
 	}
 	
+
+	public void generarSpawnPoint() {
+		
+		Posicion posicion = this.encontrarCasillaVacia();
+		if (posicion != null) {
+			
+			Spawn spawn = new Spawn(posicion);
+			this.tablero[spawn.posicion.x][spawn.posicion.y] = new Casilla<Spawn>(spawn);
+			this.puntosSpawn.add(spawn);
+		}
+	}
+	
+	public void generarZombie() {
+		
+		for (int i = 0; i < this.puntosSpawn.size(); i++) {
+			
+			Spawn spawn = this.puntosSpawn.get(i);
+			Zombie zombie = spawn.generarZombie(spawn.posicion);
+			this.tableroPersonajes[zombie.posicion.x][zombie.posicion.y] = zombie;
+			
+		}
+	}
 
 }

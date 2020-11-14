@@ -18,6 +18,7 @@ import modelo.Edificacion;
 import modelo.Jugador;
 import modelo.Personaje;
 import modelo.Posicion;
+import modelo.Spawn;
 import vista.VentanaInicio;
 
 public class ControladorZombieDefense implements ActionListener, MouseListener, KeyListener {
@@ -47,6 +48,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	private void pintarMapa() {
 		
 		Icon img = null;
+		Spawn spawn;
 		Bloque bloque;
 		Edificacion edificacion;
 		
@@ -64,6 +66,10 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
             		
             	case "Bloque":
             		bloque = (Bloque) app.mapa.tablero[i][j].elemento;img = bloque.icon;
+            		break;
+            	
+            	case "Spawn":
+            		spawn = (Spawn) app.mapa.tablero[i][j].elemento;img = spawn.imagen;
             		break;
             	}
                 this.vInicio.tablero[i][j].setIcon(img);

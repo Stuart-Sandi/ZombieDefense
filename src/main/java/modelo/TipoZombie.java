@@ -2,7 +2,6 @@ package modelo;
 
 public enum TipoZombie {
 	//pasos, distanciaVision, vida, cantidadAcciones, experiencia;
-	ZombieNormal(7,7,100,3,1),
 	ZombieListener(15,15,90,3,20),
 	ZombieKirstein(10,10,200,3,50),
 	ZombieChayanne(10,10,120,3,30);

@@ -30,6 +30,7 @@ public class Aplicacion {
 		this.personajes = new ArrayList<>();
 		this.edificaciones = new ArrayList<>();
 		generarJugadores();
+		generarZombies();
 	}
 		
 	public void generarJugadores() {
@@ -56,11 +57,8 @@ public class Aplicacion {
 		}
 		
 	}
-	
-	public void generarSpawnPoint() {
+	public void generarZombies() {
 		
-		Posicion posicion = new Posicion();
-		Spawn spawn = new Spawn(null);
+		this.mapa.generarZombie();
 	}
-	
 }

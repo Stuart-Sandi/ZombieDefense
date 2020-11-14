@@ -8,18 +8,21 @@ import controlador.Helpers;
 
 public class Spawn {
 	
-	Icon imagen;
-	Posicion posicion;
+	public Icon imagen;
+	public Posicion posicion;
 	
 	public Spawn(Posicion pPosicion) {
 		this.posicion = pPosicion;
 		this.imagen = Helpers.getImagenResized("Spawn", ".png", ValoresDefecto.anchoTablero, ValoresDefecto.altoTablero);
 	}
 	
-	public Zombie generarZombie() {
+	public Zombie generarZombie(Posicion pPosicion) {
 		Random rand = new Random();
 		TipoZombie[] tiposZombies = TipoZombie.values();
-		Zombie p = new Zombie( tiposZombies[(rand.nextInt(tiposZombies.length))]);
+		TipoZombie tZombie = tiposZombies[(rand.nextInt(tiposZombies.length))];
+		Zombie p = new Zombie(tZombie);
+		p.imagen = Helpers.getImagenResized(tZombie.toString(), ".png", ValoresDefecto.anchoTablero, ValoresDefecto.altoTablero);
+		p.posicion = pPosicion;
 		return p;
 	}
 }
