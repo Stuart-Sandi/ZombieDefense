@@ -8,7 +8,7 @@ public enum TipoJugador{
 			  3,   //cantidadAcciones
 			  10, //experiencia
 			  Habilidades.Pistolero,
-			  new Arma("Glock", 5, 3, Arma.TipoArma.MEDIO)),
+			  ArmasPrecargadas.GLOCK.arma),
 	
 	Sniper(5,      //pasos
 		   10,     //distanciaVision
@@ -16,7 +16,7 @@ public enum TipoJugador{
 		   3,   //cantidadAcciones
 		   20, //experiencia
 		   Habilidades.Sniper,
-		   new Arma("Dragunov", 5, 3, Arma.TipoArma.LARGO)),
+		   ArmasPrecargadas.DRAGUNOV.arma),
 	
 	Ninja(17,     //pasos
 		  17,    //distanciaVision
@@ -24,7 +24,7 @@ public enum TipoJugador{
 		  3,   //cantidadAcciones
 		  15, //experiencia
 		  Habilidades.Ninja,
-		  new Arma("Cuchillo", 5, 3, Arma.TipoArma.CORTO));
+		  ArmasPrecargadas.CUCHILLO.arma);
 
 	
 	

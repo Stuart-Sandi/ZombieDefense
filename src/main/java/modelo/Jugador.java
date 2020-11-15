@@ -88,8 +88,33 @@ public class Jugador extends Personaje{
 	public void Atacar(Personaje pPersonaje) {
 		if(puedeAtacar(pPersonaje)) {
 			super.Atacar(pPersonaje);
+			if(!pPersonaje.vivo) {
+				agregarItemRandom();
+			}
+		}
+	}
+
+	private void agregarItemRandom() {
+		java.util.Random rand = new java.util.Random();
+		
+		if(rand.nextBoolean()) {
+			Arma arma = ArmasPrecargadas.values()[rand.nextInt( ArmasPrecargadas.values().length)].arma;
+			try {
+				arma = arma.clone();
+			} catch (CloneNotSupportedException e) {
+				System.out.println("No se pudo agregar el item "+arma+" a su inventario");
+			}
+			this.armas.put(arma.nombre, arma);
+			System.out.println("Se agrego "+arma);
 		}else {
-			
+			Item item = ConsumiblesPrecargados.values()[rand.nextInt( ConsumiblesPrecargados.values().length)].item;
+			try {
+				item = item.clone();
+			} catch (CloneNotSupportedException e) {
+				System.out.println("No se pudo agregar el item "+item+" a su inventario");
+			}
+			this.inventario.put(item.hashCode(), item);
+			System.out.println("Se agrego "+item);
 		}
 	}
 

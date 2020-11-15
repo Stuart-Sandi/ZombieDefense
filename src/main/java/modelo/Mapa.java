@@ -101,7 +101,6 @@ public class Mapa {
 		tablero[this.posicionBase.x][this.posicionBase.y] = casilla;
 	}
 	
-
 	public void generarSpawnPoint() {
 		
 		Posicion posicion = this.encontrarCasillaVacia();

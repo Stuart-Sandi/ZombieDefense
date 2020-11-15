@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
-
 public class Zombie extends Personaje{
 	public TipoZombie tipo;
 	

@@ -27,5 +27,10 @@ public class Arma extends Item {
 		return "Arma: " + nombre;
 	}
 	
+	@Override
+	protected Arma clone() throws CloneNotSupportedException {	
+		return new Arma(this.nombre, this.valor, this.ruido, this.tipo);
+	}
+	
 	
 }

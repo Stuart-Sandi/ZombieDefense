@@ -18,6 +18,7 @@ import modelo.Bloque;
 import modelo.Casilla;
 import modelo.Direccion;
 import modelo.Edificacion;
+import modelo.Item;
 import modelo.Jugador;
 import modelo.Personaje;
 import modelo.Posicion;
@@ -160,19 +161,25 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		        	
 	        }else if(jugSeleccionado != null && estado == Estado.ATACANDO){
 	        	jugSeleccionado.Atacar(personajeClickeado);
+	        	if(!personajeClickeado.vivo) {
+	        		this.app.mapa.tableroPersonajes[x][y] = null;
+	        	}
 	        }
-        }
-	        
-
-        
-		
+        	
+        	actualizarPantalla();
+        }   
 	}
 	
+	private void actualizarPantalla() {
+		pintarMapa();
+		pintarPersonajesConRangoVision();
+		mostrarInformacion();
+	}
+
 	private void seleccionarJugador(Personaje pJugador) {
 		try {
 			this.jugSeleccionado = (Jugador) pJugador;
-			pintarMapa();
-			pintarPersonajesConRangoVision();
+			actualizarPantalla();
 			actionPerformed(new ActionEvent(vInicio, vInicio.hashCode(), "MOVIMIENTO"));
 			estado = Estado.MOVIENDO;
 		} catch (Exception e) {
@@ -209,6 +216,11 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 			for (Entry<String, Arma> entry : armas.entrySet()) {
 				this.vInicio.comboBoxArma.addItem(entry.getValue());
 	        }
+			HashMap<Integer, Item> inventario = jugSeleccionado.inventario;
+			this.vInicio.comboBoxItem.removeAll();
+			for (Entry<Integer, Item> item : inventario.entrySet()) {
+				this.vInicio.comboBoxItem.addItem(item.getValue().nombre);
+			}
 			
 		}
 	}
