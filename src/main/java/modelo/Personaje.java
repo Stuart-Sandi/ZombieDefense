@@ -83,7 +83,7 @@ public class Personaje {
 
 	}
 	
-	private Boolean puedeUsarHabilidad(Habilidad hab) {
+	protected Boolean puedeUsarHabilidad(Habilidad hab) {
 		return (habilidades.contains(hab) && nivel >= hab.nivel);
 	}
 	

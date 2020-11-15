@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -67,6 +68,10 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 				}
 				break;
 			case "USARITEM":
+				if(jugSeleccionado != null) {
+					jugSeleccionado.usarItem((Item)vInicio.comboBoxItem.getSelectedItem());
+					actualizarPantalla();
+				}
 				break;
 				
 			case "SALTARTURNO":
@@ -216,10 +221,11 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 			for (Entry<String, Arma> entry : armas.entrySet()) {
 				this.vInicio.comboBoxArma.addItem(entry.getValue());
 	        }
-			HashMap<Integer, Item> inventario = jugSeleccionado.inventario;
+			this.vInicio.comboBoxItem.removeAllItems();
+			ArrayList<Item> inventario = jugSeleccionado.inventario;
 			this.vInicio.comboBoxItem.removeAll();
-			for (Entry<Integer, Item> item : inventario.entrySet()) {
-				this.vInicio.comboBoxItem.addItem(item.getValue().nombre);
+			for (Item item : inventario) {
+				this.vInicio.comboBoxItem.addItem(item);
 			}
 			
 		}
