@@ -90,7 +90,7 @@ public class Jugador extends Personaje{
 		if(puedeAtacar(pPersonaje)) {
 			super.Atacar(pPersonaje);
 			if(!pPersonaje.vivo) {
-				agregarItemRandom();
+				muerteZombie(pPersonaje);
 				agregarExperiencia(pPersonaje);
 			}
 		}
@@ -105,9 +105,10 @@ public class Jugador extends Personaje{
 				expNueva += rand.nextInt(100);
 				System.out.println("Uso habilidad de XP extra");
 			}
-			revisarNuevoNivel();
+			
 		}
-		
+		this.experiencia += expNueva;
+		revisarNuevoNivel();
 	}
 
 	private void revisarNuevoNivel() {
@@ -118,6 +119,13 @@ public class Jugador extends Personaje{
 		}	
 	}
 
+	private void muerteZombie(Personaje pPersonaje) {
+		java.util.Random rand = new java.util.Random();
+		for(int i = 0; i < rand.nextInt(pPersonaje.nivel); i++) {
+			agregarItemRandom();
+		}
+	}
+	
 	private void agregarItemRandom() {
 		java.util.Random rand = new java.util.Random();
 		
