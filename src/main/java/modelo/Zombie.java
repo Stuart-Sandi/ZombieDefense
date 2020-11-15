@@ -1,8 +1,10 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Zombie extends Personaje{
 	public TipoZombie tipo;
-
+	
 	public Zombie(TipoZombie pTipo) {
 		super();
 		this.tipo = pTipo;	
@@ -12,6 +14,8 @@ public class Zombie extends Personaje{
 		this.cantidadAcciones = pTipo.cantidadAcciones;
 		this.distanciaVision = pTipo.distanciaVision;
 		this.vivo = true;
+		this.nivel = pTipo.nivel;
+		this.habilidades = pTipo.habilidades.habilidades;
 	}
 
 	public Zombie(TipoZombie pTipo, int x, int y) {
@@ -23,6 +27,8 @@ public class Zombie extends Personaje{
 		this.cantidadAcciones = pTipo.cantidadAcciones;
 		this.distanciaVision = pTipo.distanciaVision;
 		this.vivo = true;
+		this.nivel = pTipo.nivel;
+		this.habilidades = pTipo.habilidades.habilidades;
 	}
 	
 }

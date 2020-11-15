@@ -42,6 +42,12 @@ public class VentanaInicio {
 			panel, 
 			panel2;
 	
+	public JButton
+			btnAtacar,
+			btnUsar,
+			btnActivarMovimiento,
+			btnSaltarTurnoPersonaje;
+			
 	private ControladorZombieDefense controlador;
 
 	/**
@@ -50,8 +56,6 @@ public class VentanaInicio {
 	public VentanaInicio(ControladorZombieDefense pControlador) {
 		this.controlador = pControlador;
 		initialize();
-		setActionCommands();
-		setActionListener();
 	}
 
 	
@@ -149,6 +153,8 @@ public class VentanaInicio {
 		comboBoxArma = new JComboBox();
 		comboBoxArma.setFocusable(false);
 		comboBoxArma.setBounds(34, 464, 182, 22);
+		comboBoxArma.addActionListener(controlador);
+		comboBoxArma.setActionCommand("COMBOBOXARMA");
 		panel2.add(comboBoxArma);
 		
 		comboBoxItem = new JComboBox();
@@ -158,24 +164,32 @@ public class VentanaInicio {
 		
 		
 		//JButton
-		JButton btnNewButton = new JButton("ATACAR");
-		btnNewButton.setBounds(226, 464, 89, 23);
-		btnNewButton.setFocusable(false);
-		panel2.add(btnNewButton);
+		btnAtacar = new JButton("ATACAR");
+		btnAtacar.setBounds(226, 464, 89, 23);
+		btnAtacar.setFocusable(false);
+		btnAtacar.addActionListener(controlador);
+		btnAtacar.setActionCommand("ATAQUE");
+		panel2.add(btnAtacar);
 		
-		JButton btnActivarMovimiento = new JButton("ACTIVAR MOVIMIENTO");
+		btnActivarMovimiento = new JButton("ACTIVAR MOVIMIENTO");
 		btnActivarMovimiento.setBounds(138, 410, 177, 23);
 		btnActivarMovimiento.setFocusable(false);
+		btnActivarMovimiento.addActionListener(controlador);
+		btnActivarMovimiento.setActionCommand("MOVIMIENTO");
 		panel2.add(btnActivarMovimiento);
 		
-		JButton btnUsar = new JButton("USAR");
+		btnUsar = new JButton("USAR");
 		btnUsar.setBounds(226, 522, 89, 23);
 		btnUsar.setFocusable(false);
+		btnUsar.addActionListener(controlador);
+		btnUsar.setActionCommand("USARITEM");
 		panel2.add(btnUsar);
 		
-		JButton btnSaltarTurnoPersonaje = new JButton("SALTAR TURNO PERSONAJE");
+		btnSaltarTurnoPersonaje = new JButton("SALTAR TURNO PERSONAJE");
 		btnSaltarTurnoPersonaje.setBounds(62, 566, 203, 23);
 		btnSaltarTurnoPersonaje.setFocusable(false);
+		btnSaltarTurnoPersonaje.addActionListener(controlador);
+		btnSaltarTurnoPersonaje.setActionCommand("SALTARTURNO");
 		panel2.add(btnSaltarTurnoPersonaje);
 			
 		this.tablero = new JButton[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
@@ -197,27 +211,8 @@ public class VentanaInicio {
                 this.tablero[i][j].setBounds(30*j, 30*i, 30, 30);
                 this.tablero[i][j].addMouseListener(controlador);
                 this.tablero[i][j].setAction(new Posicion(i,j));
-                
+                this.tablero[i][j].setActionCommand("CASILLA");
             }
         }
     }
-	
-	private void generarBase() {
-		
-	}
-    
-	
-	private void setActionListener() {
-	/*
-	 * Agrega los listener a los componentes del frame
-	 */
-		
-	}
-
-	private void setActionCommands() {
-	/*
-	 * Agrega el tipo de listener que esperará el controlador
-	 */
-		
-	}
 }

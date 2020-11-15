@@ -123,5 +123,23 @@ public class Mapa {
 			
 		}
 	}
+	
+	public boolean validarCampoVacio(Direccion direccion, Personaje personaje) {
+		/*
+		 * Se encarga de validar que la nueva posicion del jugador no este ocupada
+		 */
+		
+		int x = personaje.posicion.x + direccion.x;
+		int y = personaje.posicion.y + direccion.y;
+		if(x < ValoresDefecto.altoTablero && y < ValoresDefecto.anchoTablero &&
+			x >= 0 && y >= 0) {
+			Personaje jug = tableroPersonajes[x][y];
+			
+			return jug == null;
+		}else{
+			return false;
+		}
+		
+	}
 
 }

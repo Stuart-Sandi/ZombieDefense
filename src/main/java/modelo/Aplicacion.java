@@ -57,6 +57,7 @@ public class Aplicacion {
 		}
 		
 	}
+	
 	public void generarZombies() {
 		
 		this.mapa.generarZombie();
