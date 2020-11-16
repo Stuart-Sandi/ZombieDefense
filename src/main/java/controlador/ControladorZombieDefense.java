@@ -166,8 +166,11 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		        	
 	        }else if(jugSeleccionado != null && estado == Estado.ATACANDO){
 	        	jugSeleccionado.Atacar(personajeClickeado);
+	        	app.mapa.listaRuido.add(jugSeleccionado.posicion.Copy());
+	        	app.moverZombies();
 	        	if(!personajeClickeado.vivo) {
 	        		this.app.mapa.tableroPersonajes[x][y] = null;
+	        		app.zombies.remove(personajeClickeado);
 	        	}
 	        }
         	
@@ -261,6 +264,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		}
 		if (direccion != null && app.mapa.validarCampoVacio(direccion, jugSeleccionado)) {
 			moverJugador(direccion);
+			app.moverZombies();
 		}
 		
 	}
@@ -268,9 +272,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	private void moverJugador(Direccion direccion) {
 		
 		//Genera la nueva posicion
-		this.app.mapa.tableroPersonajes[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y] = null;
 		this.jugSeleccionado.Mover(direccion);
-		this.app.mapa.tableroPersonajes[this.jugSeleccionado.posicion.x][this.jugSeleccionado.posicion.y] = this.jugSeleccionado;
 		
 		pintarMapa();
 		pintarPersonajesConRangoVision();

@@ -1,5 +1,9 @@
 package modelo;
 
+import java.util.ArrayList;
+
+import javax.swing.Icon;
+
 public class Zombie extends Personaje{
 	public TipoZombie tipo;
 	
@@ -27,6 +31,79 @@ public class Zombie extends Personaje{
 		this.vivo = true;
 		this.nivel = pTipo.nivel;
 		this.habilidades = pTipo.habilidades.habilidades;
+	}
+
+	public void Comportarse() {
+		if(!intentoAtaque()) {
+			if(!intentoVerYaAvanzar()) {
+				if(!intentoEscucharYaAvanzar()) {
+					Direccion direccion = posicion.getDireccion(Aplicacion.getInstance().mapa.posicionBase);
+            		this.Mover(direccion);
+            		System.out.println("Avanzar a la base");
+				}
+				
+			}
+			
+		}
+
+		
+	}
+
+	private boolean intentoEscucharYaAvanzar() {
+		ArrayList<Posicion> posicionesRuido = Aplicacion.getInstance().mapa.listaRuido;
+		if(posicionesRuido.size() > 0) {
+			Direccion direccion = posicion.getDireccion(posicionesRuido.remove(0));
+    		this.Mover(direccion);
+    		System.out.println("Escucho");
+    		return true;
+		}
+		return false;
+	}
+
+	private boolean intentoVerYaAvanzar() {
+		Personaje[][] tablero = Aplicacion.getInstance().mapa.tableroPersonajes;
+
+		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
+            
+            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
+            	if(tablero[i][j] != null && posicion.distancia(new Posicion(i, j))  <= distanciaVision &&
+            		Aplicacion.getInstance().mapa.tableroPersonajes[i][j] != this) {
+            		Direccion direccion = posicion.getDireccion(new Posicion(i, j));
+            		this.Mover(direccion);
+            		System.out.println("Vio y avanzo");
+            		return true;
+            	}
+            		
+            	
+            }
+		}
+		return false;
+	}
+
+	private Boolean intentoAtaque() {
+		Posicion posicionActual;
+		Direccion[] direcciones = Direccion.values();
+		for (Direccion direccion : direcciones) {
+			posicionActual = this.posicion.Copy();
+			posicionActual.Mover(direccion);
+			if(posicionActual.x < ValoresDefecto.altoTablero && posicionActual.y < ValoresDefecto.anchoTablero &&
+				posicionActual.x >= 0 && posicionActual.y >= 0) {
+				//es posible revisar
+				Personaje personajeRevisado = Aplicacion.getInstance().mapa.tableroPersonajes[posicionActual.x][posicionActual.y];
+				if(personajeRevisado != null && personajeRevisado.getClass().getName() == 	Jugador.class.getName()) {
+					this.Atacar(personajeRevisado);
+					if(!personajeRevisado.vivo) {
+		        		Aplicacion.getInstance().mapa.tableroPersonajes
+		        		[personajeRevisado.posicion.x][personajeRevisado.posicion.y] = null;
+		        		Aplicacion.getInstance().personajes.remove(personajeRevisado);
+		        	}
+					return true;
+					
+				}
+			}
+			
+		}
+		return false;
 	}
 	
 }

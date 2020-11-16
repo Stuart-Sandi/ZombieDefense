@@ -10,9 +10,10 @@ public class Mapa {
 	
 	public Casilla[][] tablero;
 	public ArrayList<Spawn> puntosSpawn;
+	public ArrayList<Posicion> listaRuido;
 	public Personaje[][] tableroPersonajes;
 	public Icon imgBloque, imgBase;
-	private Posicion posicionBase;
+	public Posicion posicionBase;
 	
 	public Mapa() {
 		super();
@@ -22,6 +23,7 @@ public class Mapa {
 		this.tablero = new Casilla[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
 		this.tableroPersonajes = new Personaje[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
 		this.puntosSpawn = new ArrayList<>();
+		this.listaRuido = new ArrayList<>();
 		this.generarTablero();
 		this.generarObstaculos();
 		this.generarSpawnPoint();
@@ -112,15 +114,16 @@ public class Mapa {
 		}
 	}
 	
-	public void generarZombie() {
-		
+	public ArrayList<Zombie> generarZombie() {
+		ArrayList<Zombie> nuevosZombies = new ArrayList<Zombie>();
 		for (int i = 0; i < this.puntosSpawn.size(); i++) {
 			
 			Spawn spawn = this.puntosSpawn.get(i);
 			Zombie zombie = spawn.generarZombie(spawn.posicion);
 			this.tableroPersonajes[zombie.posicion.x][zombie.posicion.y] = zombie;
-			
+			nuevosZombies.add(zombie);
 		}
+		return nuevosZombies;
 	}
 	
 	public boolean validarCampoVacio(Direccion direccion, Personaje personaje) {

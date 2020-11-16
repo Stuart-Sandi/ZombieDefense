@@ -11,6 +11,7 @@ public class Aplicacion {
 	static Aplicacion self;
 	public ArrayList <Bloque> bloques;
 	public ArrayList <Personaje> personajes;
+	public ArrayList <Zombie> zombies;
 	public ArrayList <Edificacion> edificaciones;
 	
 	//public HashMap<Integer, GeneradorZombie> puntoSpawn;
@@ -29,6 +30,7 @@ public class Aplicacion {
 		this.bloques = new ArrayList<>();
 		this.personajes = new ArrayList<>();
 		this.edificaciones = new ArrayList<>();
+		this.zombies = new ArrayList<>();
 		generarJugadores();
 		generarZombies();
 	}
@@ -60,6 +62,12 @@ public class Aplicacion {
 	
 	public void generarZombies() {
 		
-		this.mapa.generarZombie();
+		zombies.addAll(this.mapa.generarZombie());
+	}
+	
+	public void moverZombies() {
+		for (Zombie zombie : zombies) {
+			zombie.Comportarse();
+		}
 	}
 }

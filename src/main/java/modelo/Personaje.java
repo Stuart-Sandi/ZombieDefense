@@ -65,17 +65,21 @@ public class Personaje {
 	public void Mover(Direccion pDireccion) {
 		Posicion posicionAnterior = posicion.Mover(pDireccion);
 		Boolean sePuedeMover = revisarMovimiento();
-		if(!sePuedeMover) {
+		if(sePuedeMover) {
 			this.posicion = posicionAnterior;
+		}else {
+			Aplicacion.getInstance().mapa.tableroPersonajes[posicionAnterior.x][posicionAnterior.y] = null;
+			Aplicacion.getInstance().mapa.tableroPersonajes[posicion.x][posicion.y] = this;
 		}
+		
 	}
 	
 	protected Boolean revisarMovimiento() {
 		Casilla[][] tablero  = Aplicacion.getInstance().mapa.tablero;
 		if(posicion.x < ValoresDefecto.altoTablero && posicion.y < ValoresDefecto.anchoTablero &&
 			posicion.x >= 0 && posicion.y >= 0) {
-				String nombreClaseCasilla = tablero[posicion.x][posicion.y].elemento.getClass().getSimpleName();
-				Boolean condicion = ( nombreClaseCasilla == Edificacion.class.getSimpleName());
+				String nombreClaseCasilla = tablero[posicion.x][posicion.y].elemento.getClass().getName();
+				Boolean condicion = ( nombreClaseCasilla == Edificacion.class.getName());
 				return condicion;
 		}else {
 			return false;

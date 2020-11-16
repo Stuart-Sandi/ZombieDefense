@@ -66,6 +66,10 @@ public class Jugador extends Personaje{
 		Boolean sePuedeMover = revisarMovimiento();
 		if(!sePuedeMover) {
 			this.posicion = posicionAnterior;
+		}else {
+			Aplicacion.getInstance().mapa.tableroPersonajes[posicionAnterior.x][posicionAnterior.y] = null;
+			Aplicacion.getInstance().mapa.tableroPersonajes[posicion.x][posicion.y] = this;
+			
 		}
 	}
 	
