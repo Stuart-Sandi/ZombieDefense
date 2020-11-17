@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class VentanaInicio {
 
@@ -37,6 +38,8 @@ public class VentanaInicio {
 			lblNivelP,
 			lblExperencia,
 			lblPasos;
+	
+	public JTextArea TAhabilidades;
 	
 	public JComboBox 
 			comboBoxArma, 
@@ -165,9 +168,9 @@ public class VentanaInicio {
 		lblPersonaje.setBounds(10, 40, 175, 175);
 		panel2.add(lblPersonaje);
 		
-		lblHabilidad = new JLabel();
-		lblHabilidad.setBounds(15, 250, 300, 100);
-		panel2.add(lblHabilidad);
+//		lblHabilidad = new JLabel();
+//		lblHabilidad.setBounds(15, 250, 300, 100);
+//		panel2.add(lblHabilidad);
 		
 		
 		//ComboBox
@@ -183,6 +186,11 @@ public class VentanaInicio {
 		comboBoxItem.setBounds(34, 522, 182, 22);
 		panel2.add(comboBoxItem);
 		
+		//JTextArea
+		TAhabilidades = new JTextArea();
+		TAhabilidades.setEditable(false);
+		TAhabilidades.setBounds(10, 256, 305, 89);
+		panel2.add(TAhabilidades);
 		
 		//JButton
 		btnAtacar = new JButton("ATACAR");

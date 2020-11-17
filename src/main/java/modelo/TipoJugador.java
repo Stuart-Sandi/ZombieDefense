@@ -6,7 +6,7 @@ public enum TipoJugador{
 			  5,     //distanciaVision
 			  100,  //vida
 			  3,   //cantidadAcciones
-			  10, //experiencia
+			  0, //experiencia
 			  Habilidades.Pistolero,
 			  ArmasPrecargadas.GLOCK.arma),
 	
@@ -14,15 +14,15 @@ public enum TipoJugador{
 		   10,     //distanciaVision
 		   80,   //vida
 		   3,   //cantidadAcciones
-		   20, //experiencia
+		   0, //experiencia
 		   Habilidades.Sniper,
 		   ArmasPrecargadas.DRAGUNOV.arma),
 	
-	Ninja(17,     //pasos
+	Ninja(10,     //pasos
 		  17,    //distanciaVision
 		  75,   //vida
 		  3,   //cantidadAcciones
-		  15, //experiencia
+		  0, //experiencia
 		  Habilidades.Ninja,
 		  ArmasPrecargadas.CUCHILLO.arma);
 

@@ -17,31 +17,31 @@ public class Personaje {
 	public Personaje() {
 		super();
 		this.posicion = new Posicion();
-		this.nivel = 100;
+		this.nivel = 1;
+		this.vivo = true;
 	}
 	
 	public Personaje(int x, int y) {
 		super();
 		this.posicion = new Posicion(x, y);
-		this.nivel = 100;
+		this.nivel = 1;
 	}
 	
 	public Personaje(Posicion pPosicion) {
 		super();
 		this.posicion = pPosicion;
-		this.nivel = 100;
+		this.nivel = 1;
 	}
 	
-	public int Atacar(Personaje pPersonaje) {
+	public int Atacar(Personaje pPersonaje, int arma) {
 		/*Es ataque esta definido por el nivel del personaje mas el valor de la habilidad si es que tiene
 		 * */
-		int ataque = nivel;
+		int ataque = arma;
 		if(puedeUsarHabilidad(Habilidad.DannoExtra)) {
 			ataque += nivel*Habilidad.DannoExtra.valor;
 			//System.out.println("Uso habilidad de daño extra, golpeo con: "+ataque);
 		}
 		pPersonaje.recibirAtaque(ataque);
-		//System.out.println("Ataco por: "+ataque);
 		return ataque;
 	}
 	

@@ -9,9 +9,9 @@ public enum Habilidades {
 				Habilidad.DannoExtra,
 				Habilidad.Defensa)),
 	Sniper(Arrays.asList(
+				Habilidad.ProbEvadirAtaques,
 				Habilidad.AccionesPorTurno, 
-				Habilidad.VidaExtra, 
-				Habilidad.ProbEvadirAtaques)),
+				Habilidad.VidaExtra)),
 	Ninja(Arrays.asList(
 				Habilidad.Escalar, 
 				Habilidad.ProbExperienciaExtra, 

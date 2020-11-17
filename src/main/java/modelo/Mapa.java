@@ -117,24 +117,29 @@ public class Mapa {
 	
 	public void generarSpawnPoint() {
 		
-		Posicion posicion = this.encontrarCasillaVacia();
-		if (posicion != null) {
-			
-			Spawn spawn = new Spawn(posicion);
-			this.tablero[spawn.posicion.x][spawn.posicion.y] = new Casilla<Spawn>(spawn);
-			this.puntosSpawn.add(spawn);
+		for (int i = 0; i < 3; i++) {
+			Posicion posicion = this.encontrarCasillaVacia();
+			if (posicion != null) {
+				
+				Spawn spawn = new Spawn(posicion);
+				this.tablero[spawn.posicion.x][spawn.posicion.y] = new Casilla<Spawn>(spawn);
+				this.puntosSpawn.add(spawn);
+				System.out.println("Lista Spawn: "+this.puntosSpawn.size());
+			}
 		}
+		
 	}
 	
 	public ArrayList<Zombie> generarZombie() {
 		/*
 		 * Se encarga de generar zombies por cada uno de los puntos de spawn
 		 */
-		ArrayList<Zombie> nuevosZombies = new ArrayList<Zombie>();
+		ArrayList<Zombie> nuevosZombies = new ArrayList<>();
 		for (int i = 0; i < this.puntosSpawn.size(); i++) {
 			
 			Spawn spawn = this.puntosSpawn.get(i);
-			Zombie zombie = spawn.generarZombie(spawn.posicion);
+			Posicion posicion = new Posicion(spawn.posicion.x,spawn.posicion.y);
+			Zombie zombie = spawn.generarZombie(posicion);
 			this.tableroPersonajes[zombie.posicion.x][zombie.posicion.y] = zombie;
 			nuevosZombies.add(zombie);
 		}

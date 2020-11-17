@@ -10,8 +10,9 @@ import controlador.Helpers;
 public class Aplicacion {
 	static Aplicacion self;
 	public int nivel;
+	public boolean turno;
 	public ArrayList <Bloque> bloques;
-	public ArrayList <Personaje> personajes;
+	public ArrayList <Jugador> jugadores;
 	public ArrayList <Zombie> zombies;
 	public ArrayList <Edificacion> edificaciones;
 	
@@ -28,9 +29,10 @@ public class Aplicacion {
 	public Aplicacion() {
 		super();
 		this.nivel = 1;
+		this.turno = true;
 		this.mapa = new Mapa();
 		this.bloques = new ArrayList<>();
-		this.personajes = new ArrayList<>();
+		this.jugadores = new ArrayList<>();
 		this.edificaciones = new ArrayList<>();
 		this.zombies = new ArrayList<>();
 		generarJugadores();
@@ -57,16 +59,15 @@ public class Aplicacion {
 			
 			Jugador jug = new Jugador(listTipoJugadores[i], listPosiciones.get(i));
 			jug.imagen = Helpers.getImagenResized(listTipoJugadores[i].toString(), ".png",ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
-			this.personajes.add(jug);
+			this.jugadores.add(jug);
 			this.mapa.tableroPersonajes[jug.posicion.x][jug.posicion.y] = jug;
 		}
 		
 	}
 	
 	public void generarZombies() {
-		zombies.removeAll(zombies);
 		zombies.addAll(this.mapa.generarZombie());
-		System.out.println(zombies.size());
+		System.out.println("Tamño lista Zombies: "+zombies.size());
 	}
 	
 	public void moverZombies() {
@@ -74,4 +75,5 @@ public class Aplicacion {
 			zombie.Comportarse();
 		}
 	}
+	
 }

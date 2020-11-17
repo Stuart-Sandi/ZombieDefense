@@ -8,7 +8,7 @@ import java.util.Random;
 public class Jugador extends Personaje{
 	
 	public TipoJugador tipo;
-	
+	public boolean ataque,item,movi;
 	public ArrayList<Item> inventario;
 	public HashMap<String, Arma> armas;
 	public Arma armaActual;
@@ -24,6 +24,7 @@ public class Jugador extends Personaje{
 		this.experiencia = pTipo.experiencia;
 		this.habilidades = pTipo.habilidades.habilidades;
 		this.vivo = true;
+		this.ataque = this.item = this.movi = false;
 		this.inventario = new ArrayList<Item>();
 		this.armas = new HashMap<String, Arma>();
 		this.armas.put(pTipo.armaInicial.nombre, pTipo.armaInicial);
@@ -90,10 +91,11 @@ public class Jugador extends Personaje{
 	}
 	
 	@Override
-	public int Atacar(Personaje pPersonaje) {
+	public int Atacar(Personaje pPersonaje, int arma) {
 		int dato = 0;
 		if(puedeAtacar(pPersonaje)) {
-			dato = super.Atacar(pPersonaje);
+			dato = super.Atacar(pPersonaje, arma);
+			
 			if(!pPersonaje.vivo) {
 				muerteZombie(pPersonaje);
 				agregarExperiencia(pPersonaje);
@@ -163,7 +165,53 @@ public class Jugador extends Personaje{
 	public void usarItem(Item selectedItem) {
 		this.vida += selectedItem.valor;
 		this.inventario.remove(selectedItem);
+		this.item = true;
 		System.out.println("Se uso "+selectedItem+" paso de: "+(vida-selectedItem.valor)+" a "+vida);
+	}
+	
+	public void modificarAcciones(Estado estado) {
+		/*
+		 * Es el metodo encargado de ir revisando que acciones ya se hicieron en el turno
+		 */
+		
+		switch (estado){
+		
+		case ATACANDO:
+			this.ataque = true;
+			break;
+			
+		case USANDOITEM:
+			this.item = true;
+			break;
+			
+		case MOVIENDO:
+			this.movi = true;
+			break;
+		}
+	}
+	
+	public boolean totalAcciones() {
+		/*
+		 * Metodo encargado de devolver true si ya hizo todas las acciones del turno
+		 */
+		
+		if (this.ataque && this.item && this.movi) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void reestablecerAcciones() {
+		
+		if (totalAcciones()) {
+			this.pasos = this.tipo.pasos;
+			this.ataque = this.item = this.movi = false;
+		}
+	}
+	
+	public void saltarTurno() {
+		
+		this.ataque = this.item = this.movi = true;
 	}
 	
 }

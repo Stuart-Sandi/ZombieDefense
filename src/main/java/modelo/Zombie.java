@@ -6,14 +6,15 @@ import javax.swing.Icon;
 
 public class Zombie extends Personaje{
 	public TipoZombie tipo;
+	public int dano;
 	
 	public Zombie(TipoZombie pTipo) {
 		super();
 		this.tipo = pTipo;	
 		this.vida = pTipo.vida;
-		this.cantidadAcciones = pTipo.cantidadAcciones;
 		this.pasos = pTipo.pasos;
-		this.cantidadAcciones = pTipo.cantidadAcciones;
+		this.dano = pTipo.dano;
+		this.cantidadAcciones = 0;
 		this.distanciaVision = pTipo.distanciaVision;
 		this.vivo = true;
 		this.nivel = pTipo.nivel;
@@ -24,9 +25,9 @@ public class Zombie extends Personaje{
 		super(x, y);
 		this.tipo = pTipo;	
 		this.vida = pTipo.vida;
-		this.cantidadAcciones = pTipo.cantidadAcciones;
+		this.dano = pTipo.dano;
 		this.pasos = pTipo.pasos;
-		this.cantidadAcciones = pTipo.cantidadAcciones;
+		this.cantidadAcciones = 0;
 		this.distanciaVision = pTipo.distanciaVision;
 		this.vivo = true;
 		this.nivel = pTipo.nivel;
@@ -83,19 +84,23 @@ public class Zombie extends Personaje{
 	private Boolean intentoAtaque() {
 		Posicion posicionActual;
 		Direccion[] direcciones = Direccion.values();
+		
 		for (Direccion direccion : direcciones) {
+			
 			posicionActual = this.posicion.Copy();
 			posicionActual.Mover(direccion);
+			
 			if(posicionActual.x < ValoresDefecto.altoTablero && posicionActual.y < ValoresDefecto.anchoTablero &&
 				posicionActual.x >= 0 && posicionActual.y >= 0) {
 				//es posible revisar
 				Personaje personajeRevisado = Aplicacion.getInstance().mapa.tableroPersonajes[posicionActual.x][posicionActual.y];
+				
 				if(personajeRevisado != null && personajeRevisado.getClass().getName() == 	Jugador.class.getName()) {
-					this.Atacar(personajeRevisado);
+					this.Atacar(personajeRevisado, this.dano);
 					if(!personajeRevisado.vivo) {
 		        		Aplicacion.getInstance().mapa.tableroPersonajes
 		        		[personajeRevisado.posicion.x][personajeRevisado.posicion.y] = null;
-		        		Aplicacion.getInstance().personajes.remove(personajeRevisado);
+		        		Aplicacion.getInstance().jugadores.remove(personajeRevisado);
 		        	}
 					return true;
 					
