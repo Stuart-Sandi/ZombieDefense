@@ -109,7 +109,7 @@ public class Jugador extends Personaje{
 			int probDeEvadir = 1 + rand.nextInt(100);
 			if(probDeEvadir <= Habilidad.ProbExperienciaExtra.valor) {
 				expNueva += rand.nextInt(100);
-				System.out.println("Uso habilidad de XP extra");
+				//System.out.println("Uso habilidad de XP extra");
 			}
 			
 		}
@@ -143,7 +143,7 @@ public class Jugador extends Personaje{
 				System.out.println("No se pudo agregar el item "+arma+" a su inventario");
 			}
 			this.armas.put(arma.nombre, arma);
-			System.out.println("Se agrego "+arma);
+			//System.out.println("Se agrego "+arma);
 		}else {
 			Item item = ConsumiblesPrecargados.values()[rand.nextInt( ConsumiblesPrecargados.values().length)].item;
 			try {
@@ -152,7 +152,7 @@ public class Jugador extends Personaje{
 				System.out.println("No se pudo agregar el item "+item+" a su inventario");
 			}
 			this.inventario.add(item);
-			System.out.println("Se agrego "+item);
+			//System.out.println("Se agrego "+item);
 		}
 	}
 
