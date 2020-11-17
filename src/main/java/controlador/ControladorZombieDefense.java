@@ -172,6 +172,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	        	int mensaje = jugSeleccionado.Atacar(personajeClickeado);
 	        	app.mapa.listaRuido.add(jugSeleccionado.posicion.Copy());
 	        	app.moverZombies();
+	        	actualizarPantalla();
 	        	if(!personajeClickeado.vivo) {
 	        		this.app.mapa.tableroPersonajes[x][y] = null;
 	        		app.zombies.remove(personajeClickeado);
@@ -188,7 +189,9 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	        }
         	
         	actualizarPantalla();
-        }   
+        }
+        pintarMapa();
+        pintarPersonajes();
 	}
 	
 	private void aumentarNivel() {
@@ -300,6 +303,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		if (direccion != null && app.mapa.validarCampoVacio(direccion, jugSeleccionado)) {
 			moverJugador(direccion);
 			app.moverZombies();
+			actualizarPantalla();
 		}
 		
 	}
