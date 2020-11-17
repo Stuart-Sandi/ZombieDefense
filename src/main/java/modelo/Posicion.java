@@ -56,7 +56,7 @@ public	class Posicion extends javax.swing.AbstractAction{
 		return "Posicion X: " + x + " Y: " + y;
 	}
 	public Direccion getDireccion(Posicion posicion) {
-		System.out.println(this+" => "+posicion);
+		//System.out.println(this+" => "+posicion);
 		if(x > posicion.x ) {
 			return Direccion.ARRIBA;
 		}else if(x < posicion.x) {

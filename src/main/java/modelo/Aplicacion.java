@@ -66,6 +66,7 @@ public class Aplicacion {
 	public void generarZombies() {
 		zombies.removeAll(zombies);
 		zombies.addAll(this.mapa.generarZombie());
+		System.out.println(zombies.size());
 	}
 	
 	public void moverZombies() {

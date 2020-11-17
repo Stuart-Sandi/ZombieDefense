@@ -38,10 +38,10 @@ public class Personaje {
 		int ataque = nivel;
 		if(puedeUsarHabilidad(Habilidad.DannoExtra)) {
 			ataque += nivel*Habilidad.DannoExtra.valor;
-			System.out.println("Uso habilidad de daño extra, golpeo con: "+ataque);
+			//System.out.println("Uso habilidad de daño extra, golpeo con: "+ataque);
 		}
 		pPersonaje.recibirAtaque(ataque);
-		System.out.println("Ataco por: "+ataque);
+		//System.out.println("Ataco por: "+ataque);
 		return ataque;
 	}
 	
@@ -52,15 +52,15 @@ public class Personaje {
 			int probDeEvadir = 1 + rand.nextInt(100);
 			if(probDeEvadir <= Habilidad.ProbEvadirAtaques.valor) {
 				valor = 0;
-				System.out.println("Evadio el ataque");
+				//System.out.println("Evadio el ataque");
 			}
 		}
 		this.vida = getVida() - valor;
 		if (vida < 0) {
 			this.vivo = false;
 		}
-		System.out.print("Vivo: "+vivo);
-		System.out.println(" recibio daño por: "+valor);
+		//System.out.print("Vivo: "+vivo);
+		//System.out.println(" recibio daño por: "+valor);
 	}
 	
 	public void Mover(Direccion pDireccion) {

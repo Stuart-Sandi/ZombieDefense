@@ -39,7 +39,7 @@ public class Zombie extends Personaje{
 				if(!intentoEscucharYaAvanzar()) {
 					Direccion direccion = posicion.getDireccion(Aplicacion.getInstance().mapa.posicionBase);
             		this.Mover(direccion);
-            		System.out.println("Avanzar a la base");
+            		//System.out.println("Avanzar a la base");
 				}
 				
 			}
@@ -54,7 +54,7 @@ public class Zombie extends Personaje{
 		if(posicionesRuido.size() > 0) {
 			Direccion direccion = posicion.getDireccion(posicionesRuido.remove(0));
     		this.Mover(direccion);
-    		System.out.println("Escucho");
+    	//	System.out.println("Escucho");
     		return true;
 		}
 		return false;
@@ -70,7 +70,7 @@ public class Zombie extends Personaje{
             		Aplicacion.getInstance().mapa.tableroPersonajes[i][j] != this) {
             		Direccion direccion = posicion.getDireccion(new Posicion(i, j));
             		this.Mover(direccion);
-            		System.out.println("Vio y avanzo");
+            		//System.out.println("Vio y avanzo");
             		return true;
             	}
             		
