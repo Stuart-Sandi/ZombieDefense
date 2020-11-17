@@ -32,7 +32,7 @@ public class Personaje {
 		this.nivel = 100;
 	}
 	
-	public void Atacar(Personaje pPersonaje) {
+	public int Atacar(Personaje pPersonaje) {
 		/*Es ataque esta definido por el nivel del personaje mas el valor de la habilidad si es que tiene
 		 * */
 		int ataque = nivel;
@@ -42,6 +42,7 @@ public class Personaje {
 		}
 		pPersonaje.recibirAtaque(ataque);
 		System.out.println("Ataco por: "+ataque);
+		return ataque;
 	}
 	
 	public void recibirAtaque(int valor) {

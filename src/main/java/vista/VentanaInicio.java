@@ -32,6 +32,10 @@ public class VentanaInicio {
 			lblH,
 			lblF,
 			lblHabilidad, 
+			lblVida,
+			lblVision,
+			lblNivelP,
+			lblExperencia,
 			lblPasos;
 	
 	public JComboBox 
@@ -135,10 +139,27 @@ public class VentanaInicio {
 //		lblNewLabel_1_2.setBounds(15, 497, 54, 14);
 //		panel2.add(lblNewLabel_1_2);
 		
-		lblPasos = new JLabel("PASOS: 0");
-		lblPasos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPasos.setBounds(34, 414, 118, 14);
+		
+		//Labels de mostrar informacion del personaje
+		lblVida = new JLabel("Vida: ");
+		lblVida.setBounds(195, 40, 120, 14);
+		panel2.add(lblVida);
+		
+		lblPasos = new JLabel("Pasos: ");
+		lblPasos.setBounds(195, 83, 120, 14);
 		panel2.add(lblPasos);
+		
+		lblVision = new JLabel("Vision: ");
+		lblVision.setBounds(195, 124, 120, 14);
+		panel2.add(lblVision);
+		
+		lblNivelP = new JLabel("Nivel: ");
+		lblNivelP.setBounds(195, 163, 120, 14);
+		panel2.add(lblNivelP);
+		
+		lblExperencia = new JLabel("Experencia:");
+		lblExperencia.setBounds(195, 201, 120, 14);
+		panel2.add(lblExperencia);
 		
 		lblPersonaje = new JLabel();
 		lblPersonaje.setBounds(10, 40, 175, 175);

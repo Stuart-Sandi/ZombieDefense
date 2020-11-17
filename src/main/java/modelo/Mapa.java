@@ -33,35 +33,44 @@ public class Mapa {
 	public Posicion encontrarCasillaVacia() {
 		
 		Posicion posicion;
-		ArrayList<Integer> listaX = new ArrayList<>();
-		ArrayList<Integer> listaY = new ArrayList<>();
 		
 		while (true) {
 			
-			int x = (new Random()).nextInt(19-8+1) + 8;
-			int y = (new Random()).nextInt(19-12+1) + 12;
+			int x = (new Random()).nextInt(19) + 1;
+			int y = (new Random()).nextInt(19) + 1;
 			
-			System.out.println("X: "+x+" Y: "+y);
-			if ((this.tablero[x][y].elemento.getClass().getSimpleName()).equals("Bloque")) {
-				posicion = new Posicion(x,y);
-				break;
-			}
-			
-			//Hace estos if en caso de no quedar mas espacio para generar spawns
-			if (!listaX.contains(x)) {
-				listaX.add(x);
-			}
-			if (!listaY.contains(y)) {
-				listaX.add(y);
-			}
-			
-			if (listaX.size() == 7 && listaY.size() == 11) {
-				return null;
+			if (!this.validarPosInvalidaSpawn(x, y)) {
+				
+				System.out.println("X: "+x+" Y: "+y);
+				if ((this.tablero[x][y].elemento.getClass().getSimpleName()).equals("Bloque")) {
+					
+					if (this.tableroPersonajes[x][y] == null) {
+						posicion = new Posicion(x,y);
+						break;
+					}
+					
+				}
 			}
 		}
 		
 		
 		return posicion;
+	}
+	
+	public boolean validarPosInvalidaSpawn(int x, int y) {
+		
+		ArrayList<Integer> lX = new ArrayList<>();
+		ArrayList<Integer> lY = new ArrayList<>();
+		
+		for (int i = 0; i < ValoresDefecto.listaPosNoSpawnX.length; i++) {
+			lX.add(ValoresDefecto.listaPosNoSpawnX[i]);
+			lY.add(ValoresDefecto.listaPosNoSpawnY[i]);
+		}
+		
+		if (lX.contains(x) && lY.contains(y)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void generarTablero() {
@@ -97,6 +106,9 @@ public class Mapa {
 	}
 	
 	public void generarBase() {
+		/*
+		 * Se encarga de generar la base aliada
+		 */
 		
 		Edificacion base = new Edificacion(ValoresDefecto.vidaBase,this.posicionBase,imgBase);
 		Casilla<Edificacion> casilla = new Casilla<Edificacion>(base);
@@ -115,6 +127,9 @@ public class Mapa {
 	}
 	
 	public ArrayList<Zombie> generarZombie() {
+		/*
+		 * Se encarga de generar zombies por cada uno de los puntos de spawn
+		 */
 		ArrayList<Zombie> nuevosZombies = new ArrayList<Zombie>();
 		for (int i = 0; i < this.puntosSpawn.size(); i++) {
 			

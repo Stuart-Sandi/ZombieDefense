@@ -90,14 +90,16 @@ public class Jugador extends Personaje{
 	}
 	
 	@Override
-	public void Atacar(Personaje pPersonaje) {
+	public int Atacar(Personaje pPersonaje) {
+		int dato = 0;
 		if(puedeAtacar(pPersonaje)) {
-			super.Atacar(pPersonaje);
+			dato = super.Atacar(pPersonaje);
 			if(!pPersonaje.vivo) {
 				muerteZombie(pPersonaje);
 				agregarExperiencia(pPersonaje);
 			}
 		}
+		return dato;
 	}
 
 	private void agregarExperiencia(Personaje pPersonaje) {

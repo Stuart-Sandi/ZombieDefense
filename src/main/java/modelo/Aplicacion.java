@@ -9,6 +9,7 @@ import controlador.Helpers;
 
 public class Aplicacion {
 	static Aplicacion self;
+	public int nivel;
 	public ArrayList <Bloque> bloques;
 	public ArrayList <Personaje> personajes;
 	public ArrayList <Zombie> zombies;
@@ -26,6 +27,7 @@ public class Aplicacion {
 	
 	public Aplicacion() {
 		super();
+		this.nivel = 1;
 		this.mapa = new Mapa();
 		this.bloques = new ArrayList<>();
 		this.personajes = new ArrayList<>();
@@ -45,9 +47,10 @@ public class Aplicacion {
 			private static final long serialVersionUID = 1L;
 
 			{ 
-                add(new Posicion(8, 16)); 
-                add(new Posicion(3, 10)); 
-                add(new Posicion(8, 10));  
+                add(new Posicion(5, 14)); 
+                add(new Posicion(2, 14)); 
+                add(new Posicion(5, 17)); 
+        
             } 
         };
 		for (int i = 0; i < listPosiciones.size(); i++) {
@@ -61,7 +64,7 @@ public class Aplicacion {
 	}
 	
 	public void generarZombies() {
-		
+		zombies.removeAll(zombies);
 		zombies.addAll(this.mapa.generarZombie());
 	}
 	

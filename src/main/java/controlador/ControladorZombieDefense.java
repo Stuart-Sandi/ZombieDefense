@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import modelo.Aplicacion;
 import modelo.Arma;
@@ -29,10 +30,12 @@ import modelo.Zombie;
 import vista.VentanaInicio;
 
 public class ControladorZombieDefense implements ActionListener, MouseListener, KeyListener {
+	
 	private enum Estado{
 		ATACANDO,
 		MOVIENDO;
 	}
+	
 	//VARIABLES
 	private VentanaInicio vInicio;
 	private Aplicacion app;
@@ -162,26 +165,42 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         	
         	if(personajeClickeado.getClass().getName() != Zombie.class.getName()) {
         		seleccionarJugador(personajeClickeado);
-				mostrarInformacion();
+				mostrarInformacion(personajeClickeado);
 		        	
 	        }else if(jugSeleccionado != null && estado == Estado.ATACANDO){
-	        	jugSeleccionado.Atacar(personajeClickeado);
+
+	        	int mensaje = jugSeleccionado.Atacar(personajeClickeado);
 	        	app.mapa.listaRuido.add(jugSeleccionado.posicion.Copy());
 	        	app.moverZombies();
 	        	if(!personajeClickeado.vivo) {
 	        		this.app.mapa.tableroPersonajes[x][y] = null;
 	        		app.zombies.remove(personajeClickeado);
+	        		if (app.zombies.isEmpty()) {
+	        			System.out.println("LLego acaaa");
+	        			aumentarNivel();
+	        		}
 	        	}
+	        	if (mensaje != 0) {
+	        		JOptionPane.showMessageDialog(null, "El jugador generó un daño de: "+mensaje+"");
+	        	}
+	        }else {
+	        	mostrarInformacion(personajeClickeado);
 	        }
         	
         	actualizarPantalla();
         }   
 	}
 	
+	private void aumentarNivel() {
+		app.nivel++;
+		app.mapa.generarSpawnPoint();
+		app.mapa.generarZombie();
+	}
+	
 	private void actualizarPantalla() {
 		pintarMapa();
 		pintarPersonajesConRangoVision();
-		mostrarInformacion();
+		mostrarInformacion(this.jugSeleccionado);
 	}
 
 	private void seleccionarJugador(Personaje pJugador) {
@@ -210,26 +229,42 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		
 	}
 
-	private void mostrarInformacion() {
+	private void mostrarInformacion(Personaje personaje) {
 		/*
 		 * Muestra la informacion de cada personaje en la pantalla
 		 */
 		
-		if (this.jugSeleccionado != null) {
-			Icon icon = Helpers.getImagenResized(this.jugSeleccionado.tipo.toString(), ".png", 
-					this.vInicio.lblPersonaje.getHeight(), this.vInicio.lblPersonaje.getWidth());
-			this.vInicio.lblPersonaje.setIcon(icon);
-			HashMap<String, Arma> armas = jugSeleccionado.armas;
-			this.vInicio.comboBoxArma.removeAllItems();
-			for (Entry<String, Arma> entry : armas.entrySet()) {
-				this.vInicio.comboBoxArma.addItem(entry.getValue());
-	        }
-			this.vInicio.comboBoxItem.removeAllItems();
-			ArrayList<Item> inventario = jugSeleccionado.inventario;
-			this.vInicio.comboBoxItem.removeAll();
-			for (Item item : inventario) {
-				this.vInicio.comboBoxItem.addItem(item);
+		if (personaje != null) {
+			
+			if ((personaje.getClass().getSimpleName().equals("Jugador"))){
+				//Se setea la imagen del jugador
+				Jugador j = (Jugador)personaje;
+				Icon icon = Helpers.getImagenResized(j.tipo.toString(), ".png", 
+						this.vInicio.lblPersonaje.getHeight(), this.vInicio.lblPersonaje.getWidth());
+				this.vInicio.lblPersonaje.setIcon(icon);
+				
+				//Se setea la informacion en los labels
+				this.vInicio.lblVida.setText("Vida: "+j.vida);
+				this.vInicio.lblPasos.setText("Pasos: "+j.pasos);
+				this.vInicio.lblVision.setText("Vision: "+j.distanciaVision);
+				this.vInicio.lblNivelP.setText("Nivel: "+j.nivel);
+				this.vInicio.lblExperencia.setText("Experencia: "+j.experiencia);
+				
+				HashMap<String, Arma> armas = j.armas;
+				this.vInicio.comboBoxArma.removeAllItems();
+				for (Entry<String, Arma> entry : armas.entrySet()) {
+					this.vInicio.comboBoxArma.addItem(entry.getValue());
+		        }
+				this.vInicio.comboBoxItem.removeAllItems();
+				ArrayList<Item> inventario = j.inventario;
+				this.vInicio.comboBoxItem.removeAll();
+				for (Item item : inventario) {
+					this.vInicio.comboBoxItem.addItem(item);
+				}
+			}else {
+				
 			}
+			
 			
 		}
 	}
