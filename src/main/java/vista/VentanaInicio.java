@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import controlador.ControladorZombieDefense;
 import modelo.Posicion;
@@ -31,15 +32,21 @@ public class VentanaInicio {
 			lblPersonaje,
 			lblP,
 			lblH,
+			lblA,
 			lblF,
 			lblHabilidad, 
 			lblVida,
 			lblVision,
 			lblNivelP,
+			lblNivel,
 			lblExperencia,
 			lblPasos;
 	
-	public JTextArea TAhabilidades;
+	public JScrollPane scrllTextAction;
+	
+	public JTextArea 
+			TAAccion,
+			TAhabilidades;
 	
 	public JComboBox 
 			comboBoxArma, 
@@ -112,6 +119,11 @@ public class VentanaInicio {
 		lblOpciones.setBounds(625, 11, 109, 38);
 		frame.getContentPane().add(lblOpciones);
 		
+		lblF = new JLabel("FUNCIONES");
+		lblF.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblF.setBounds(10, 469, 150, 20);
+		panel2.add(lblF);
+		
 		lblP = new JLabel("PERSONAJE");
 		lblP.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblP.setBounds(10, 10, 130, 20);
@@ -122,25 +134,10 @@ public class VentanaInicio {
 		lblH.setBounds(10, 225, 150, 20);
 		panel2.add(lblH);
 		
-		lblF = new JLabel("FUNCIONES");
-		lblF.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblF.setBounds(115, 355, 150, 20);
-		panel2.add(lblF);
-		
-//		JLabel lblNewLabel_1 = new JLabel("ARMAS :");
-//		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblNewLabel_1.setBounds(15, 439, 54, 14);
-//		panel2.add(lblNewLabel_1);
-//		
-//		JLabel lblNewLabel_1_1 = new JLabel("MOVIMIENTO :");
-//		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblNewLabel_1_1.setBounds(15, 389, 89, 14);
-//		panel2.add(lblNewLabel_1_1);
-//		
-//		JLabel lblNewLabel_1_2 = new JLabel("ITEMS:");
-//		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblNewLabel_1_2.setBounds(15, 497, 54, 14);
-//		panel2.add(lblNewLabel_1_2);
+		lblA = new JLabel("ACCIONES");
+		lblA.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblA.setBounds(10, 356, 150, 20);
+		panel2.add(lblA);
 		
 		
 		//Labels de mostrar informacion del personaje
@@ -168,22 +165,18 @@ public class VentanaInicio {
 		lblPersonaje.setBounds(10, 40, 175, 175);
 		panel2.add(lblPersonaje);
 		
-//		lblHabilidad = new JLabel();
-//		lblHabilidad.setBounds(15, 250, 300, 100);
-//		panel2.add(lblHabilidad);
-		
 		
 		//ComboBox
 		comboBoxArma = new JComboBox();
 		comboBoxArma.setFocusable(false);
-		comboBoxArma.setBounds(34, 464, 182, 22);
+		comboBoxArma.setBounds(10, 500, 182, 22);
 		comboBoxArma.addActionListener(controlador);
 		comboBoxArma.setActionCommand("COMBOBOXARMA");
 		panel2.add(comboBoxArma);
 		
 		comboBoxItem = new JComboBox();
 		comboBoxItem.setFocusable(false);
-		comboBoxItem.setBounds(34, 522, 182, 22);
+		comboBoxItem.setBounds(10, 533, 182, 22);
 		panel2.add(comboBoxItem);
 		
 		//JTextArea
@@ -192,34 +185,41 @@ public class VentanaInicio {
 		TAhabilidades.setBounds(10, 256, 305, 89);
 		panel2.add(TAhabilidades);
 		
+		TAAccion = new JTextArea();
+		TAAccion.setEditable(false);
+		
+		//Scrllbar
+		scrllTextAction = new JScrollPane(TAAccion);
+		scrllTextAction.setBounds(10, 386, 305, 80);
+		panel2.add(scrllTextAction);
+		
 		//JButton
 		btnAtacar = new JButton("ATACAR");
-		btnAtacar.setBounds(226, 464, 89, 23);
+		btnAtacar.setBounds(226, 499, 89, 23);
 		btnAtacar.setFocusable(false);
 		btnAtacar.addActionListener(controlador);
 		btnAtacar.setActionCommand("ATAQUE");
 		panel2.add(btnAtacar);
 		
-		btnActivarMovimiento = new JButton("ACTIVAR MOVIMIENTO");
-		btnActivarMovimiento.setBounds(138, 410, 177, 23);
-		btnActivarMovimiento.setFocusable(false);
-		btnActivarMovimiento.addActionListener(controlador);
-		btnActivarMovimiento.setActionCommand("MOVIMIENTO");
-		panel2.add(btnActivarMovimiento);
-		
 		btnUsar = new JButton("USAR");
-		btnUsar.setBounds(226, 522, 89, 23);
+		btnUsar.setBounds(226, 533, 89, 23);
 		btnUsar.setFocusable(false);
 		btnUsar.addActionListener(controlador);
 		btnUsar.setActionCommand("USARITEM");
 		panel2.add(btnUsar);
 		
-		btnSaltarTurnoPersonaje = new JButton("SALTAR TURNO PERSONAJE");
-		btnSaltarTurnoPersonaje.setBounds(62, 566, 203, 23);
+		btnSaltarTurnoPersonaje = new JButton("SALTAR TURNO ");
+		btnSaltarTurnoPersonaje.setBounds(10, 566, 305, 23);
 		btnSaltarTurnoPersonaje.setFocusable(false);
 		btnSaltarTurnoPersonaje.addActionListener(controlador);
 		btnSaltarTurnoPersonaje.setActionCommand("SALTARTURNO");
 		panel2.add(btnSaltarTurnoPersonaje);
+		
+		lblNivel = new JLabel("NIVEL: 1");
+		lblNivel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		lblNivel.setBounds(446, 11, 164, 38);
+		frame.getContentPane().add(lblNivel);
+		
 			
 		this.tablero = new JButton[ValoresDefecto.altoTablero][ValoresDefecto.anchoTablero];
 		this.generarBotones();

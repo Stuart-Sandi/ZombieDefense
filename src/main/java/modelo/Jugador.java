@@ -12,6 +12,7 @@ public class Jugador extends Personaje{
 	public ArrayList<Item> inventario;
 	public HashMap<String, Arma> armas;
 	public Arma armaActual;
+	public String mensajeTMP;
 	
 	public Jugador(TipoJugador pTipo) {
 		super();
@@ -91,10 +92,10 @@ public class Jugador extends Personaje{
 	}
 	
 	@Override
-	public int Atacar(Personaje pPersonaje, int arma) {
-		int dato = 0;
+	public String Atacar(Personaje pPersonaje, int arma) {
+		String dato = "";
 		if(puedeAtacar(pPersonaje)) {
-			dato = super.Atacar(pPersonaje, arma);
+			dato += super.Atacar(pPersonaje, arma);
 			
 			if(!pPersonaje.vivo) {
 				muerteZombie(pPersonaje);

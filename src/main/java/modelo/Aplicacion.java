@@ -70,10 +70,12 @@ public class Aplicacion {
 		System.out.println("Tamño lista Zombies: "+zombies.size());
 	}
 	
-	public void moverZombies() {
+	public String moverZombies() {
+		String mensaje = "";
 		for (Zombie zombie : zombies) {
-			zombie.Comportarse();
+			mensaje += zombie.Comportarse();
 		}
+		return mensaje;
 	}
 	
 }

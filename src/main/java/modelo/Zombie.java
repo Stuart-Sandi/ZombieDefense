@@ -34,8 +34,9 @@ public class Zombie extends Personaje{
 		this.habilidades = pTipo.habilidades.habilidades;
 	}
 
-	public void Comportarse() {
-		if(!intentoAtaque()) {
+	public String Comportarse() {
+		String mensaje = intentoAtaque();
+		if(mensaje == "") {
 			if(!intentoVerYaAvanzar()) {
 				if(!intentoEscucharYaAvanzar()) {
 					Direccion direccion = posicion.getDireccion(Aplicacion.getInstance().mapa.posicionBase);
@@ -46,7 +47,7 @@ public class Zombie extends Personaje{
 			}
 			
 		}
-
+		return mensaje;
 		
 	}
 
@@ -81,7 +82,8 @@ public class Zombie extends Personaje{
 		return false;
 	}
 
-	private Boolean intentoAtaque() {
+	private String intentoAtaque() {
+		String mensaje = "";
 		Posicion posicionActual;
 		Direccion[] direcciones = Direccion.values();
 		
@@ -95,20 +97,21 @@ public class Zombie extends Personaje{
 				//es posible revisar
 				Personaje personajeRevisado = Aplicacion.getInstance().mapa.tableroPersonajes[posicionActual.x][posicionActual.y];
 				
-				if(personajeRevisado != null && personajeRevisado.getClass().getName() == 	Jugador.class.getName()) {
+				if(personajeRevisado != null && personajeRevisado.getClass().getName() == Jugador.class.getName()) {
 					this.Atacar(personajeRevisado, this.dano);
+					mensaje = this.tipo.toString()+" atacó al "+((Jugador)personajeRevisado).tipo.toString()+"\n";
+					
 					if(!personajeRevisado.vivo) {
+						mensaje = this.tipo.toString()+" mató al "+((Jugador)personajeRevisado).tipo.toString()+"\n";
 		        		Aplicacion.getInstance().mapa.tableroPersonajes
 		        		[personajeRevisado.posicion.x][personajeRevisado.posicion.y] = null;
 		        		Aplicacion.getInstance().jugadores.remove(personajeRevisado);
 		        	}
-					return true;
-					
 				}
 			}
 			
 		}
-		return false;
+		return mensaje;
 	}
 	
 }

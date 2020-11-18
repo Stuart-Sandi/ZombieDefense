@@ -54,22 +54,19 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 				break;
 			case "ATAQUE":
 				if(jugSeleccionado != null) {
-					vInicio.btnAtacar.setEnabled(false);
-					vInicio.btnActivarMovimiento.setEnabled(true);
 					estado = Estado.ATACANDO;
 				}
 				break;
 			case "MOVIMIENTO":
 				if(jugSeleccionado != null) {
-					vInicio.btnAtacar.setEnabled(true);
-					vInicio.btnActivarMovimiento.setEnabled(false);	
 					estado = Estado.MOVIENDO;
 				}
 				break;
 			case "USARITEM":
 				if(jugSeleccionado != null) {
-					jugSeleccionado.usarItem((Item)vInicio.comboBoxItem.getSelectedItem());
+					this.jugSeleccionado.usarItem((Item)vInicio.comboBoxItem.getSelectedItem());
 					this.jugSeleccionado.modificarAcciones(Estado.USANDOITEM);
+					this.validarAccionesRealizadas(this.jugSeleccionado);
 					actualizarPantalla();
 				}
 				break;
@@ -175,25 +172,34 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 			//Seleccionar el Zombie para ser atacado	
 	        }else if(jugSeleccionado != null && estado == Estado.ATACANDO){
 
-	        	int mensaje = jugSeleccionado.Atacar(personajeClickeado, ((Arma)this.vInicio.comboBoxArma.getSelectedItem()).valor );
+	        	String dano = jugSeleccionado.Atacar(personajeClickeado, ((Arma)this.vInicio.comboBoxArma.getSelectedItem()).valor );
 	        	this.jugSeleccionado.modificarAcciones(Estado.ATACANDO);
 	        	app.mapa.listaRuido.add(jugSeleccionado.posicion.Copy());
+	        	this.validarAccionesRealizadas(this.jugSeleccionado);
+	        	this.estado = Estado.MOVIENDO;
+	        	
+	        	String mensaje = "El "+this.jugSeleccionado.tipo.toString()+" atacó al "+
+	        	((Zombie)personajeClickeado).tipo.toString()+dano;
 	        	
 	        	if(!personajeClickeado.vivo) {
 	        		
 	        		this.app.mapa.tableroPersonajes[x][y] = null;
 	        		app.zombies.remove(personajeClickeado);
+	        		mensaje = "El "+this.jugSeleccionado.tipo.toString()+" mató al "+
+	        				((Zombie)personajeClickeado).tipo.toString()+"\n";
+	        		
 	        		if (app.zombies.isEmpty()) {
 	        			aumentarNivel();
 	        		}
-	        	}else {
-	        		mostrarInformacion(personajeClickeado);
-	        	}
+	        		
+	        	}//else {
+	        		//mostrarInformacion(personajeClickeado);
+	        	//}
 	        	
-	        	if (mensaje != 0) {
-	        		JOptionPane.showMessageDialog(null, "El jugador generó un daño de: "+mensaje+"");
+	        	if (dano != "") {
+	        		this.vInicio.TAAccion.append(mensaje);
 	        	}else {
-	        		JOptionPane.showMessageDialog(null, "Objetivo fuera de alcance");
+	        		this.vInicio.TAAccion.append("Objetivo fuera de alcance\n");
 	        	}
 	        
 	        //Seleccionar el zombie para mostrar su informacion
@@ -224,9 +230,14 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		
 		if (!validar) {
 			this.jugSeleccionado = null;
-			this.app.moverZombies();//ejecuta el turno de los zombies
+			String mensaje = this.app.moverZombies();//ejecuta el turno de los zombies
+			this.vInicio.TAAccion.append(mensaje);
 			this.actualizarPantalla();
 			this.reestablecerValoresJugadores();//Reestablece las acciones del personaje
+			
+			if (this.app.jugadores.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "¡¡Los zombies han matado los jugadores y destruido la base!! GAME OVER");
+			}
 		}
 		
 	}
@@ -234,6 +245,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	private void aumentarNivel() {
 		
 		app.nivel++;
+		this.vInicio.lblNivel.setText("NIVEL: "+app.nivel);
 		app.mapa.generarSpawnPoint();
 		app.generarZombies();
 		this.reestablecerValoresJugadores();
@@ -250,6 +262,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	private void seleccionarJugador(Personaje pJugador) {
 		try {
 			this.jugSeleccionado = (Jugador) pJugador;
+			validarAccionesRealizadas(this.jugSeleccionado);
 			if (this.jugSeleccionado.totalAcciones()) {
 				JOptionPane.showMessageDialog(null, "Ya realizó todas las acciones del turno con este personaje");
 				return;
@@ -261,6 +274,33 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		} catch (Exception e) {}
 		
 		
+	}
+	
+	private void validarAccionesRealizadas(Jugador jugador) {
+		
+		if (jugador.totalAcciones()) {
+			this.vInicio.btnSaltarTurnoPersonaje.setEnabled(false);
+		}else {
+			this.vInicio.btnSaltarTurnoPersonaje.setEnabled(true);
+		}
+
+		//Verifica si el jugador ya ataco una vez
+		if(jugador.ataque) {
+			this.vInicio.btnAtacar.setEnabled(false);
+			this.vInicio.comboBoxArma.setEnabled(false);
+		}else {
+			this.vInicio.btnAtacar.setEnabled(true);
+			this.vInicio.comboBoxArma.setEnabled(true);
+		}
+		
+		//Verifica si el jugador ya usó un item una vez
+		if(jugador.item) {
+			this.vInicio.comboBoxItem.setEnabled(false);
+			this.vInicio.btnUsar.setEnabled(false);
+		}else {
+			this.vInicio.comboBoxItem.setEnabled(true);
+			this.vInicio.btnUsar.setEnabled(true);
+		}
 	}
 	
 	private void seleccionarArma() {
