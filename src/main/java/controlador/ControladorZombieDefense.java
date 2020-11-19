@@ -118,7 +118,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
         }
 	}
 	
-	public void pintarPersonajes() {
+	private void pintarPersonajes() {
 		
 		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
             
@@ -134,7 +134,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		}
 	}
 	
-	public void pintarPersonajesConRangoVision() {
+	private void pintarPersonajesConRangoVision() {
 		/*Este metodo pinta todo lo que este menor o igual al rango de vision dado en personaje
 		 * */
 		if (this.jugSeleccionado != null) {

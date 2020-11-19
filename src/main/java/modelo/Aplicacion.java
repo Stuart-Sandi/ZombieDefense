@@ -11,13 +11,8 @@ public class Aplicacion {
 	static Aplicacion self;
 	public int nivel;
 	public boolean turno;
-	public ArrayList <Bloque> bloques;
 	public ArrayList <Jugador> jugadores;
 	public ArrayList <Zombie> zombies;
-	public ArrayList <Edificacion> edificaciones;
-	
-	//public HashMap<Integer, GeneradorZombie> puntoSpawn;
-	public HashMap<String, Icon> imagenes;
 	public Mapa mapa;
 	
 	public static Aplicacion getInstance() {
@@ -31,9 +26,7 @@ public class Aplicacion {
 		this.nivel = 1;
 		this.turno = true;
 		this.mapa = new Mapa();
-		this.bloques = new ArrayList<>();
 		this.jugadores = new ArrayList<>();
-		this.edificaciones = new ArrayList<>();
 		this.zombies = new ArrayList<>();
 		generarJugadores();
 		generarZombies();
