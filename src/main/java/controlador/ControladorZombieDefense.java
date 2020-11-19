@@ -64,7 +64,8 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 				break;
 			case "USARITEM":
 				if(jugSeleccionado != null) {
-					this.jugSeleccionado.usarItem((Item)vInicio.comboBoxItem.getSelectedItem());
+					String mensaje = this.jugSeleccionado.usarItem((Item)vInicio.comboBoxItem.getSelectedItem());
+					this.vInicio.TAAccion.append(mensaje);
 					this.jugSeleccionado.modificarAcciones(Estado.USANDOITEM);
 					this.validarAccionesRealizadas(this.jugSeleccionado);
 					actualizarPantalla();
@@ -136,20 +137,24 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	public void pintarPersonajesConRangoVision() {
 		/*Este metodo pinta todo lo que este menor o igual al rango de vision dado en personaje
 		 * */
-		Personaje[][] tablero = app.mapa.tableroPersonajes;
-		int rangoVision = jugSeleccionado.distanciaVision;
-		for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
-            
-            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
-            	if(tablero[i][j] != null && jugSeleccionado.posicion.distancia(new Posicion(i, j))  <= rangoVision ) {
-            		Personaje personaje = tablero[i][j]; 
-            		Icon img = personaje.imagen;
-            		this.vInicio.tablero[i][j].setIcon(img);
-            	}
-            		
-            	
-            }
+		if (this.jugSeleccionado != null) {
+			Personaje[][] tablero = app.mapa.tableroPersonajes;
+			int rangoVision = jugSeleccionado.distanciaVision;
+			for (int i = 0; i < modelo.ValoresDefecto.altoTablero; i++) {
+	            
+	            for (int j = 0; j < modelo.ValoresDefecto.anchoTablero; j++) {
+	            	
+	            	if(tablero[i][j] != null && jugSeleccionado.posicion.distancia(new Posicion(i, j))  <= rangoVision ) {
+	            		Personaje personaje = tablero[i][j]; 
+	            		Icon img = personaje.imagen;
+	            		this.vInicio.tablero[i][j].setIcon(img);
+	            	}
+	            		
+	            	
+	            }
+			}
 		}
+		
 	}
 	
 	@Override
@@ -179,22 +184,20 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	        	this.estado = Estado.MOVIENDO;
 	        	
 	        	String mensaje = "El "+this.jugSeleccionado.tipo.toString()+" atacó al "+
-	        	((Zombie)personajeClickeado).tipo.toString()+dano;
+	        	((Zombie)personajeClickeado).tipo.toString()+" por "+dano;
 	        	
 	        	if(!personajeClickeado.vivo) {
 	        		
 	        		this.app.mapa.tableroPersonajes[x][y] = null;
 	        		app.zombies.remove(personajeClickeado);
 	        		mensaje = "El "+this.jugSeleccionado.tipo.toString()+" mató al "+
-	        				((Zombie)personajeClickeado).tipo.toString()+"\n";
+	        				((Zombie)personajeClickeado).tipo.toString()+" por "+dano+"\n";
 	        		
 	        		if (app.zombies.isEmpty()) {
 	        			aumentarNivel();
 	        		}
 	        		
-	        	}//else {
-	        		//mostrarInformacion(personajeClickeado);
-	        	//}
+	        	}
 	        	
 	        	if (dano != "") {
 	        		this.vInicio.TAAccion.append(mensaje);
@@ -207,9 +210,10 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	        	this.jugSeleccionado = null;
 	        	mostrarInformacion(personajeClickeado);
 	        }
-        	
+        	actualizarPantalla();
+        	return;
         }
-        actualizarPantalla();
+        pintarPersonajes();
 	}
 	
 	private void cambiarTurno() {
@@ -246,6 +250,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		
 		app.nivel++;
 		this.vInicio.lblNivel.setText("NIVEL: "+app.nivel);
+		app.mapa.listaRuido = new ArrayList<>(); // Reinicia el nivel de ruido
 		app.mapa.generarSpawnPoint();
 		app.generarZombies();
 		this.reestablecerValoresJugadores();
@@ -254,8 +259,7 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 	
 	private void actualizarPantalla() {
 		pintarMapa();
-		pintarPersonajes();
-		//pintarPersonajesConRangoVision();
+		pintarPersonajesConRangoVision();
 		mostrarInformacion(this.jugSeleccionado);
 	}
 
@@ -315,12 +319,13 @@ public class ControladorZombieDefense implements ActionListener, MouseListener, 
 		 */
 		
 		ArrayList <Jugador> jugadores = this.app.jugadores;
-				
+		String mensaje = "";
+		
 		//Pregunta si todos los jugadores hicieron sus movimientos
 		for (Jugador jugador : jugadores) {
-			jugador.reestablecerAcciones();
+			mensaje += jugador.reestablecerAcciones();
 		}
-		
+		this.vInicio.TAAccion.append(mensaje);
 	}
 
 	private void mostrarInformacion(Personaje personaje) {

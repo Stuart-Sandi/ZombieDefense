@@ -1,6 +1,7 @@
 package modelo;
 
 public class Arma extends Item {
+	
 	public enum TipoArma {
 		CORTO(2),
 		MEDIO(3),

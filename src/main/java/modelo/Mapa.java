@@ -89,6 +89,7 @@ public class Mapa {
 	public void generarObstaculos() {
 		
 		Icon imgMuro = Helpers.getImagenResized("muro", ".jpg", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
+		Icon imgRio = Helpers.getImagenResized("Rio", ".png", ValoresDefecto.imagenTablero, ValoresDefecto.imagenTablero);
 		
 		for (int i = 0; i < ValoresDefecto.listaPosMuroX.length; i++) {
 			
@@ -101,8 +102,6 @@ public class Mapa {
 			tablero[x][y] = casilla;
 			
 		}
-		
-		
 	}
 	
 	public void generarBase() {

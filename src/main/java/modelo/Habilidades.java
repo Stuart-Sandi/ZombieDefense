@@ -19,9 +19,10 @@ public enum Habilidades {
 	//Zombies
 	ZombieListener(Arrays.asList(
 				Habilidad.ProbEvadirAtaques,
-				Habilidad.Pasos)),
+				Habilidad.DannoExtra)),
+	
 	ZombieKirstein(Arrays.asList(
-				Habilidad.VidaExtra,
+				Habilidad.DannoExtra,
 				Habilidad.Defensa)),
 	
 	ZombieChayanne(Arrays.asList(

@@ -39,8 +39,10 @@ public class Personaje {
 		 * */
 		int ataque = arma;
 		if(puedeUsarHabilidad(Habilidad.DannoExtra)) {
-			ataque += nivel*Habilidad.DannoExtra.valor;
-			//System.out.println("Uso habilidad de daño extra, golpeo con: "+ataque);
+			int danoExtra = nivel*Habilidad.DannoExtra.valor;
+			ataque += danoExtra;
+			mensaje += "con daño extra de "+danoExtra+" ";
+
 		}
 		mensaje += pPersonaje.recibirAtaque(ataque);
 		return mensaje;
@@ -54,15 +56,23 @@ public class Personaje {
 			int probDeEvadir = 1 + rand.nextInt(100);
 			if(probDeEvadir <= Habilidad.ProbEvadirAtaques.valor) {
 				valor = 0;
-				mensaje += " pero evitó el ataque\n";
-				//System.out.println("Evadio el ataque");
+				mensaje += " pero evitó el ataque";
 			}
 		}
-		this.vida = getVida() - valor;
+		if (puedeUsarHabilidad(Habilidad.Defensa)) {
+			if (valor != 0) {
+				valor  = valor/2;
+				System.out.println("Valor nuevo: "+valor);
+				mensaje += ", pero utiilizo defensa";
+			}
+		}
+		
+		this.vida = this.vida - valor;
 		if (vida < 0) {
 			this.vivo = false;
 		}
 		
+		mensaje += "\n";
 		return mensaje;
 	}
 	
@@ -93,27 +103,5 @@ public class Personaje {
 	
 	protected Boolean puedeUsarHabilidad(Habilidad hab) {
 		return (habilidades.contains(hab) && nivel >= hab.nivel);
-	}
-	
-	public int getVida() {
-		List<Habilidad> habilidadesDefensivas = Arrays.asList(Habilidad.Defensa, Habilidad.VidaExtra);
-		int vidaExtra = valorExtraHabilidades(habilidadesDefensivas);
-		return this.vida + vidaExtra;
-	}
-	
-	public int getPasos() {	
-		List<Habilidad> habilidadesPasos = Arrays.asList(Habilidad.Pasos);
-		int pasosExtra = valorExtraHabilidades(habilidadesPasos);
-		return this.pasos + pasosExtra;
-	}
-	
-	private int valorExtraHabilidades(List<Habilidad> habilidadesDefensivas) {
-		int valorExtra = 0;
-		for (Habilidad habilidad : habilidadesDefensivas) {
-			if(puedeUsarHabilidad(habilidad)) {
-				valorExtra += habilidad.valor;
-			}
-		}
-		return valorExtra;
 	}
 }

@@ -98,8 +98,9 @@ public class Zombie extends Personaje{
 				Personaje personajeRevisado = Aplicacion.getInstance().mapa.tableroPersonajes[posicionActual.x][posicionActual.y];
 				
 				if(personajeRevisado != null && personajeRevisado.getClass().getName() == Jugador.class.getName()) {
-					this.Atacar(personajeRevisado, this.dano);
-					mensaje = this.tipo.toString()+" atacó al "+((Jugador)personajeRevisado).tipo.toString()+"\n";
+					
+					mensaje = this.tipo.toString()+" atacó al "+((Jugador)personajeRevisado).tipo.toString();
+					mensaje += " por "+this.dano+" "+this.Atacar(personajeRevisado, this.dano);
 					
 					if(!personajeRevisado.vivo) {
 						mensaje = this.tipo.toString()+" mató al "+((Jugador)personajeRevisado).tipo.toString()+"\n";
